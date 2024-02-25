@@ -41,7 +41,8 @@ export default async function SingleCardScryfall(setCode: string, cardId: number
             name: data.name,
             imageLink: data.image_uris.normal,
             price: cost,
-            set: data.set_name
+            set: data.set_name,
+            print: printing
         });
     } catch (error) {
         console.error('Error adding card:', "https://api.scryfall.com/cards/" + setCode.toLowerCase() + "/" + cardId);
