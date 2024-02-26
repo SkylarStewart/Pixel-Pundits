@@ -39,7 +39,7 @@ export default async function SingleCardScryfall(setCode: string, cardId: number
 
          setCardData({
             name: data.name,
-            imageLink: data.image_uris.normal,
+            imageUrl: data.image_uris.normal,
             price: cost,
             set: data.set_name,
             print: printing

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CardAPI } from "../TypeSheet";
 
 async function fetchData(url: string): Promise<any> {
     try {
@@ -28,23 +29,9 @@ export default async function SearchCardScryfall(cardName: string, setCode: stri
             throw new Error("No data provided");
         }
 
-        interface Card {
-            name: string;
-            image_uris: {
-                normal: string;
-            };
-            prices: {
-                usd: number;
-                usd_foil: number;
-                usd_etched: number;
-            };
-            set_name: string;
-            finishes: string[];
-        }
-
         let arr: Array<Object>;
 
-        data.forEach((card: Card) =>{
+        data.forEach((card: CardAPI) =>{
             card.finishes.forEach((printing) =>{
                 let cost: number;
                 switch(printing){
