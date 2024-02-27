@@ -15,27 +15,25 @@ async function fetchData(url: string): Promise<any> {
     }
 }
 
-export default async function SearchCardScryfall(cardName: string, setCode: string, setSearchData: Function): Promise<void> {
+export default async function SearchCardScryfall(cardName: string, setCode: string, setSearchData: Function): Promise<Array<CardObj>> {
     try {
         let data: Array<CardAPI>;
 
         if(setCode.length === 0)
-            data = (await fetchData("https://api.scryfall.com/cards/search?q=\""+ cardName + "\"&unique=prints")).data.all_parts;
+            data = (await fetchData("https://api.scryfall.com/cards/search?q=\""+ cardName + "\"&unique=prints")).data;
         else
-            data = (await fetchData("https://api.scryfall.com/cards/search?q=\""+ cardName + "\"+set%3A" + setCode +"&unique=prints")).data.all_parts;
+            data = (await fetchData("https://api.scryfall.com/cards/search?q=\""+ cardName + "\"+set%3A" + setCode.toLowerCase() +"&unique=prints")).data;
 
-        console.warn("https://api.scryfall.com/cards/search?q=\""+ cardName + "\"&unique=prints");
-        console.warn(data);
+        console.log(data.length);
 
         if (data.length === 0) {
             throw new Error("No data provided");
         }
 
-        let arr: Array<CardObj>;
+        let arr: Array<CardObj> = [];
 
         data.forEach((card: CardAPI) =>{
             card.finishes.forEach((printing) =>{
-                console.warn(card);
                 let cost: number;
                 switch(printing){
                     case "nonfoil":
@@ -52,24 +50,38 @@ export default async function SearchCardScryfall(cardName: string, setCode: stri
                         break;
                 }
 
-                arr.push({
-                    name: card.name,
-                    imageUrl: card.image_uris.normal,
-                    price: cost,
-                    set: card.set_name,
-                    print: printing,
-                    setCode: card.set,
-                    cardId: card.collection_number
-                });
+                if(card.card_faces && card.card_faces[0].image_uris){
+                    arr.push({
+                        name: card.name,
+                        imageUrl: card.card_faces[0].image_uris.small,
+                        price: cost,
+                        set: card.set_name,
+                        print: printing,
+                        setCode: card.set,
+                        cardId: card.collection_number
+                    })
+                }
+                else{
+                    arr.push({
+                        name: card.name,
+                        imageUrl: card.image_uris.small,
+                        price: cost,
+                        set: card.set_name,
+                        print: printing,
+                        setCode: card.set,
+                        cardId: card.collection_number
+                    });
+                }
             });
         });
 
-        setSearchData(arr);
+        return arr;
     } catch (error) {
-        if(setCode.length === 0)
-            console.error('Error adding card:', "https://api.scryfall.com/cards/search?q="+ name + "&unique=prints");
+        if(setCode.length === 0){
+            console.error('Error with search URL:', "https://api.scryfall.com/cards/search?q="+ cardName + "&unique=prints");
+        }
         else
-            console.error('Error adding card:', "https://api.scryfall.com/cards/search?q="+ name + "+set%3A" +setCode +"&unique=prints");
+            console.error('Error with search URL:', "https://api.scryfall.com/cards/search?q="+ cardName + "+set%3A" +setCode +"&unique=prints");
         throw error;
     }
 }

@@ -1,3 +1,5 @@
+import { CardObj } from "../TypeSheet";
+
 async function fetchData(url: string): Promise<any> {
     try {
         const response = await fetch(url);
@@ -12,7 +14,7 @@ async function fetchData(url: string): Promise<any> {
     }
 }
 
-export default async function SingleCardScryfall(setCode: string, cardId: number, printing: string, setCardData: Function): Promise<void> {
+export default async function SingleCardScryfall(setCode: string, cardId: number, printing: string): Promise<CardObj> {
     try {
         const data = await fetchData("https://api.scryfall.com/cards/" + setCode.toLowerCase() + "/" + cardId);
 
@@ -37,9 +39,9 @@ export default async function SingleCardScryfall(setCode: string, cardId: number
                 break;
         }
 
-         setCardData({
+         return({
             name: data.name,
-            imageUrl: data.image_uris.normal,
+            imageUrl: data.image_uris.small,
             price: cost,
             set: data.set_name,
             print: printing,
