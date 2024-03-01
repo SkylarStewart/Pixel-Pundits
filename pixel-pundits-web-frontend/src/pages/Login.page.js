@@ -1,5 +1,5 @@
-import { Button, TextField } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { Button } from "@mui/material";
+import { useContext, useEffect, useState, React} from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/user.context";
 
@@ -57,7 +57,7 @@ export default function Login() {
     //runs every time the login page is rendered.
 
     useEffect(() => {
-        loadUser(); // eslint-disable-next-line react-hooks/exhaustive-deps
+        loadUser();
     }, []);
 
     //function that's fired ever time the user clicks on the "login" button
@@ -107,7 +107,7 @@ export default function Login() {
                 onClick={onSubmit}>
                 Log In
             </Button>
-            <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+            <p>Dont have an account? <Link to="/signup">Sign up</Link></p>
         </>
     );
 }
