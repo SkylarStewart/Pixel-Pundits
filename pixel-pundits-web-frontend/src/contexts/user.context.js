@@ -3,6 +3,7 @@
 //so that's why i'm using it here :).
 
 //copied from https://www.mongodb.com/developer/products/atlas/email-password-authentication-react/ since there's no need to create your own version of something so universal
+/* eslint-disable */
 
 import { createContext, useState } from 'react'
 import { App, Credentials } from "realm-web"
@@ -10,7 +11,6 @@ import { APP_ID } from '../realm/constants'
 
 //creating a Realm App instance
 const app = new App(APP_ID)
-console.log(app);
 
 //creating a user context to manage and access all the user-related functions
 //think of this as the user's 'profile'
@@ -29,14 +29,12 @@ export const UserProvider = ({ children }) => {
 
     // Function to sign up user into our App Service app using their email & password
     const emailPasswordSignup = async (email, password) => {
-        console.log('started this!!!');
         try {
             await app.emailPasswordAuth.registerUser(email, password);
             // Since we are automatically confirming our users, we are going to log in
             // the user using the same credentials once the signup is complete.
             return emailPasswordLogin(email, password);
         } catch (error) {
-            console.log('caught this disgusting error...')
             throw error;
         }
     };
