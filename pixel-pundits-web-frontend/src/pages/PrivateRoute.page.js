@@ -4,7 +4,7 @@
 
 //copied from https://www.mongodb.com/developer/products/atlas/email-password-authentication-react/ since there's no need to create your own version of something so universal
 
-import {useContext} from "react"
+import {useContext, React} from "react"
 import {Navigate, Outlet, useLocation} from "react-router-dom"
 import {UserContext} from "../contexts/user.context"
 
