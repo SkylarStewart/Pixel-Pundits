@@ -25,9 +25,13 @@ export default function Home() {
             alert(error)
         }
     }
-
     const logoutRedirect = () => {
         navigate("/login")
+    }
+
+    //goes to the user's profile
+    const onProfileView = async () => {
+        navigate("/profile")
     }
 
 
@@ -40,10 +44,18 @@ export default function Home() {
             name = "search"
             ></input>
             <Button
-                variant="contianed"
+                variant="contained"
                 color="primary"
+                sx = {{marginLeft: '10px'}}
                 onClick={onLogout}>
                 Log Out
+            </Button>
+            <Button
+                variant="contained"
+                color="primary"
+                sx = {{marginLeft: '10px'}}
+                onClick={onProfileView}>
+                View Profile
             </Button>
         </>
     )

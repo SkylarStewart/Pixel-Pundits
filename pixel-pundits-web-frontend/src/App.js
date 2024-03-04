@@ -1,12 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { UserProvider } from './contexts/user.context';
 import Home from './pages/Home.page';
 import Login from './pages/Login.page';
 import PrivateRoute from './pages/PrivateRoute.page';
 import Signup from './pages/Signup.page';
+import Profile from './pages/Profile.page';
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
           {/* users by wrapping it with PrivateRoute here. */}
           <Route element={<PrivateRoute />}>
             <Route exact path="/" element={<Home />} />
+            <Route exact path = "/profile" element = {<Profile />}></Route>
           </Route>
         </Routes>
       </UserProvider>
