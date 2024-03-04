@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CardAPI, CardObj } from "../TypeSheet";
-
+/*eslint-disable*/
 async function fetchData(url: string): Promise<any> {
     try {
         const response = await fetch(url);

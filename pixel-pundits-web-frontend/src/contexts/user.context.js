@@ -66,6 +66,14 @@ export const UserProvider = ({ children }) => {
         }
     }
 
+    //function to fetch all of the user's cards from the database
+    const fetchData = async() => {
+        if (!app.currentUser) {
+            return false;
+        }
+        console.log(user.functions.getMyData())
+    }
+
     return <UserContext.Provider value={{ user, setUser, fetchUser, emailPasswordLogin, emailPasswordSignup, logOutUser }}>
         {children}
     </UserContext.Provider>;
