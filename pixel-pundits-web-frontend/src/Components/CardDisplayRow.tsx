@@ -5,7 +5,7 @@ import { CardObj } from "../TypeSheet";
 const CardDisplayRow = ({ card }: { card: CardObj }) =>{
     useEffect(() => {
         // Update the document title using the browser API
-        console.log(card);
+        //console.log(card);
       });
 
     return (
