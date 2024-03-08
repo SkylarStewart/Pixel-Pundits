@@ -78,10 +78,10 @@ export default async function SearchCardScryfall(cardName: string, setCode: stri
         return arr;
     } catch (error) {
         if(setCode.length === 0){
-            console.error('Error with search URL:', "https://api.scryfall.com/cards/search?q="+ cardName + "&unique=prints");
+            alert("Error with search URL: https://api.scryfall.com/cards/search?q="+ cardName + "&unique=prints");
         }
         else
-            console.error('Error with search URL:', "https://api.scryfall.com/cards/search?q="+ cardName + "+set%3A" +setCode +"&unique=prints");
-        throw error;
+            alert("Error with search URL: https://api.scryfall.com/cards/search?q="+ cardName + "+set%3A" +setCode +"&unique=prints");
+        return [];
     }
 }
