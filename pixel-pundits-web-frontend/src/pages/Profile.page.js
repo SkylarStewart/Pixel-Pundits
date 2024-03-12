@@ -34,22 +34,27 @@ export default function Profile() {
     const [searchCardSet, setSearchCardSet] = useState("");
     const [searchArr, setSearchArr] = useState([{}]);
 
-    useEffect(() => {
-        getFullInventory(user)
-            .then(function(inven) {
+    //async helper function
+    const loadCards = async () => {
+        await getFullInventory(user)
+            .then(function (inven) {
                 return setInventory(inven.cards);
             })
-            .then(function() {
+            .then(function () {
                 console.log("Inventory set successfully.");
                 // Any further actions after setting the inventory
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 console.error('Error:', error);
             });
         console.log(searchArr);
-    }, [])
+    }
 
-    useEffect(() =>{
+    useEffect(() => {
+        loadCards();
+    }, [user])
+
+    useEffect(() => {
         console.log(searchArr);
     }, [searchArr])
 
@@ -57,10 +62,10 @@ export default function Profile() {
     const onSubmit = async (event) => {
         event.preventDefault();
         //addDBCard(user, card)
-        
+
     }
 
-    function printArr(){
+    function printArr() {
         console.log(inventory);
     }
 
@@ -74,8 +79,8 @@ export default function Profile() {
         setSearchCardSet(event.target.value);
     };
 
-    function searchAPI(){
-        if(searchCardName === ""){
+    function searchAPI() {
+        if (searchCardName === "") {
             alert("No card name provided");
             return;
         }
@@ -90,8 +95,13 @@ export default function Profile() {
                 console.error('Error fetching data:', error);
             }
         }
-        
+
         fetchData();
+    }
+
+    //help function passed back to the inventory to help with deletion
+    const afterDelete = () => {
+        loadCards();
     }
 
     return (
@@ -122,10 +132,10 @@ export default function Profile() {
 
             {
                 searchArr.map((card) => {
-                    return <CardDisplayRow key={card.cardId} card={card}/>
+                    return <CardDisplayRow key={card.cardId} card={card} />
                 })
             }
-                
+
 
             {/* {<Button
                 variant="contained"
@@ -138,19 +148,19 @@ export default function Profile() {
             <Button onClick={printArr}>Test Print</Button>
 
             {
-                inventory.forEach((c) =>{
+                inventory.forEach((c) => {
                     //console.log(c);
                     <Row>
-                        <CardDisplayRow card={c}/>
+                        <CardDisplayRow card={c} />
                     </Row>
-                    
+
                 })
             }
 
-            {/* <div>
+            <div>
             <AddCardToCollection setInventory={setInventory}/>
-            <Inventory setInventory={setInventory}/>
-        </div> */}
+            <Inventory cards = {inventory}/>
+        </div>
 
         </>
     );
