@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import {Row, Col, Container} from "react-bootstrap";
 import { CardObj } from "../TypeSheet";
 
-const CardDisplayRow = ({ card }: { card: CardObj }) =>{
+const CardDisplayRow = ({card}: { card: CardObj}) =>{
     useEffect(() => {
         // Update the document title using the browser API
         //console.log(card);

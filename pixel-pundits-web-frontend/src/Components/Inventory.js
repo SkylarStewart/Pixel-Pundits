@@ -6,7 +6,7 @@ import { deleteDBCard } from './CardDatabaseControl';
 
 /*eslint-disable*/
 
-export default function Inventory({ cards, helperFunction }) {
+export default function Inventory({ cards, helperFunction}) {
 
     return (
         <Container>
@@ -14,7 +14,7 @@ export default function Inventory({ cards, helperFunction }) {
                 <Container key={index}> {/* Add a unique key prop here */}
                     <CardDisplayRow card={card} />
                     <Col>
-                        <Button onClick={() => deleteDBCard(card.cardId, helperFunction)}> Remove Card </Button>
+                        <Button onClick={() => deleteDBCard(card.cardId, helperFunction())}> Remove Card </Button>
                     </Col>
                 </Container>
             ))}

@@ -159,7 +159,7 @@ export default function Profile() {
 
             <div>
             <AddCardToCollection setInventory={setInventory}/>
-            <Inventory cards = {inventory}/>
+            <Inventory cards = {inventory} helperFunction={afterDelete()}/>
         </div>
 
         </>
