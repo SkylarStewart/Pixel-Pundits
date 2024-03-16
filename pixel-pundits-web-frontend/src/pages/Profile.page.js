@@ -6,13 +6,12 @@ add and remove cards from their trade binder, and see trade history.
 import { useEffect, useState, useContext, React } from "react";
 import { UserContext } from "../contexts/user.context";
 import { Button } from "@mui/material";
-import Inventory from "../components/Inventory";
-import AddCardToCollection from "../components/AddCardToCollection";
-import { getFullInventory, addDBCard } from "../components/CardDatabaseControl";
-import CardDisplayRow from "../components/CardDisplayRow";
+import Inventory from "../Components/Inventory";
+import AddCardToCollection from "../Components/AddCardToCollection";
+import { getFullInventory, addDBCard, getUserFromUsername} from "../Components/CardDatabaseControl";
+import CardDisplayRow from "../Components/CardDisplayRow";
 import { Form, Row } from "react-bootstrap";
 import SearchCardScryfall from "../ScryfallCalls/SearchCardScryfall";
-import { getUserFromUsername } from "../components/CardDatabaseControl";
 
 export default function Profile() {
 
