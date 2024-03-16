@@ -8,7 +8,7 @@
 import { createContext, useState } from 'react'
 import { App, Credentials } from "realm-web"
 import { APP_ID } from '../realm/constants'
-import { addUserMetadata } from '../components/CardDatabaseControl'
+import { addUserMetadata } from '../Components/CardDatabaseControl'
 
 
 //creating a Realm App instance
