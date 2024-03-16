@@ -3,8 +3,7 @@ This page is going to be the page that displays the user's profile.
 The plan is that, from here, users can see there profile info, make changes,
 add and remove cards from their trade binder, and see trade history.
 */
-import React from "react";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, React } from "react";
 import { UserContext } from "../contexts/user.context";
 import { Button } from "@mui/material";
 import Inventory from "../components/Inventory";
@@ -13,6 +12,7 @@ import { getFullInventory, addDBCard } from "../components/CardDatabaseControl";
 import CardDisplayRow from "../components/CardDisplayRow";
 import { Form, Row } from "react-bootstrap";
 import SearchCardScryfall from "../ScryfallCalls/SearchCardScryfall";
+import { getUserFromUsername } from "../components/CardDatabaseControl";
 
 export default function Profile() {
 
@@ -102,6 +102,14 @@ export default function Profile() {
     //help function passed back to the inventory to help with deletion
     const afterDelete = () => {
         loadCards();
+        console.log('deleted a card....');
+    }
+    
+    //test function to test the username search capability.
+    const testSearch = async() => {
+        const username = "test32";
+        const resp = await getUserFromUsername(user, username);
+        console.log(resp);
     }
 
     return (
@@ -146,6 +154,7 @@ export default function Profile() {
             </Button>} */}
 
             <Button onClick={printArr}>Test Print</Button>
+            <Button onClick={testSearch}>Test Query</Button>
 
             {
                 inventory.forEach((c) => {
@@ -158,9 +167,9 @@ export default function Profile() {
             }
 
             <div>
-            <AddCardToCollection setInventory={setInventory}/>
-            <Inventory cards = {inventory} helperFunction={afterDelete()}/>
-        </div>
+                <AddCardToCollection setInventory={setInventory} />
+                <Inventory cards={inventory} helperFunction={afterDelete} />
+            </div>
 
         </>
     );

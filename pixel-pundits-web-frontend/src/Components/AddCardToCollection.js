@@ -1,7 +1,6 @@
-import React from "react";
 import { Container, Button, Row, Form, FormControl, Col} from "react-bootstrap"
 import CardDisplayRow from './CardDisplayRow'
-import { useState } from "react";
+import { useState, React } from "react";
 import SearchCardScryfall from "../ScryfallCalls/SearchCardScryfall"
 
 export default function AddCardToCollection(setInventory){

@@ -12,7 +12,8 @@ export default function Signup() {
     const { emailPasswordSignup } = useContext(UserContext);
     const [form, setForm] = useState({
         email: "",
-        password: ""
+        password: "",
+        username: "",
     });
 
     // As explained in the Login page.
@@ -31,7 +32,7 @@ export default function Signup() {
     // As explained in the Login page.
     const onSubmit = async () => {
         try {
-            const user = await emailPasswordSignup(form.email, form.password);
+            const user = await emailPasswordSignup(form.email, form.password, form.username);
             if (user) {
                 redirectNow();
             }
@@ -42,7 +43,7 @@ export default function Signup() {
 
     return (
         <>
-            <h1>Login Page</h1>
+            <h1>Sign Up to Pixel Pundits</h1>
             <div>
 
                 <p>email</p>
@@ -50,6 +51,13 @@ export default function Signup() {
                     type="email"
                     name="email"
                     value={form.email}
+                    onChange={onFormInputChange} />
+
+                <p>username</p>
+                <input
+                    type="username"
+                    name="username"
+                    value={form.username}
                     onChange={onFormInputChange} />
 
                 <p>password</p>
