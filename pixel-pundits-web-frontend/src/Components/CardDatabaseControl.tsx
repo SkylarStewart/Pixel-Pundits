@@ -1,12 +1,6 @@
-import { Button, Container, Row, Col } from 'react-bootstrap';
-import CardDisplayRow from './CardDisplayRow'
 import { CardObj } from '../TypeSheet';
-import * as Realm from "realm-web"
-import { UserContext } from '../contexts/user.context';
-import { useContext, useState } from "react";
 import request, { gql } from 'graphql-request';
 import { GRAPHQL_ENDPOINT } from '../realm/constants';
-import { AnySrvRecord } from 'dns';
 
 //abstraction using our app services and GraphQL to perform CRUD operations on our data. most of these functions require you to pass in
 //a user object (see the bottom of user.context.js for reference)
@@ -70,7 +64,7 @@ export async function deleteDBCard(user: any, _id: any, deleteHelper: any): Prom
 
     //GraphQL query to delete a card
     const deleteCardQuery = gql`
-    mutation DeleteCard($query: CardInsertInput!) {
+    mutation DeleteCard($query: CardQueryInput!) {
         deleteOneCard(query: $query) {
             _id
         }
@@ -118,10 +112,10 @@ export async function getDBCard(user: any, _id: any): Promise<any> {
 
     //filtering (empty for now, change if we need to do more)
     const queryVariables = {};
-    
+
     //auth (adds the following as a header to our request to validate that the correct user gets the correct data)
     const headers = { Authorization: `Bearer ${user._accessToken}` };
-    
+
     //actual processing
     const resp = await request(GRAPHQL_ENDPOINT,
         getCardQuery,
@@ -167,7 +161,79 @@ export async function getFullInventory(user: any): Promise<any> {
     return resp;
 }
 
+//adds a user's metadata to the metadata collection after signing up
+//ONLY USE WHEN ABSOLUTELY NECESSARY. HAS POTENTIAL TO BE INSECURE
+export async function addUserMetadata(user: any, username: string, privateStatus: boolean): Promise<any> {
+
+    const id = user.id;
+    //graphql query to add a new card
+    const addUserMetadataQuery = gql`
+    mutation AddUserMetadata($data: UserDatumInsertInput!) {
+        insertOneUserDatum(data: $data) {
+            _id
+        }
+    }
+    `
+
+    const queryVariables = {
+        data: {
+            private: privateStatus,
+            username: username,
+            user_id: id,
+        }
+    }
+
+    const headers = { Authorization: `Bearer ${user._accessToken}` };
+
+    //actual processing 
+    try {
+        await request(GRAPHQL_ENDPOINT, addUserMetadataQuery, queryVariables, headers);
+    }
+    catch (error) {
+        console.log(error);
+        alert(error);
+    }
+
+    const returnObject = {}
+    return returnObject;
+
+}
+
+//retrieves a user's ID based off of their username
+//will retrieve multiple users if required
+export async function getUserFromUsername(user: any, usernameInput: string): Promise<any> {
+    console.log("this is a test");
+
+    const getUserFromUsernameQuery = gql`
+    query getUserDatum($username: String!) {
+        userData(query: {username: $username}) {
+            _id
+            private
+            username
+            user_id
+        }
+    }
+    `;
+
+    //filtering (empty for now, change if we need to do more)
+    const queryVariables = { username: usernameInput };
+
+    //auth (adds the following as as header to our request to validate that the correct user gets the correct data)
+    const headers = { Authorization: `Bearer ${user._accessToken}` }
+
+    //actual processing
+    const resp = await request(GRAPHQL_ENDPOINT,
+        getUserFromUsernameQuery,
+        queryVariables,
+        headers
+    );
+
+    return resp;
+}
+
 //test function (COMMENT THIS SHIT OUT GOD DAMN!!!!!)
 // function testing() {
 //     const { user } = useContext(UserContext);
 // }
+
+//function to get a user's individual ID

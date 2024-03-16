@@ -84,7 +84,7 @@ export default function Login() {
     //page rendering (hooking in to the components we have defined above.)
     return (
         <>
-            <h1>Login Page</h1>
+            <h1>Log in to Pixel Pundits</h1>
             <div>
 
                 <p>email</p>

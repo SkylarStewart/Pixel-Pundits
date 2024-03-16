@@ -8,6 +8,8 @@
 import { createContext, useState } from 'react'
 import { App, Credentials } from "realm-web"
 import { APP_ID } from '../realm/constants'
+import { addUserMetadata } from '../components/CardDatabaseControl'
+
 
 //creating a Realm App instance
 const app = new App(APP_ID)
@@ -28,15 +30,23 @@ export const UserProvider = ({ children }) => {
     };
 
     // Function to sign up user into our App Service app using their email & password
-    const emailPasswordSignup = async (email, password) => {
+    const emailPasswordSignup = async (email, password, username) => {
         try {
             await app.emailPasswordAuth.registerUser(email, password);
             // Since we are automatically confirming our users, we are going to log in
             // the user using the same credentials once the signup is complete.
-            return emailPasswordLogin(email, password);
         } catch (error) {
             throw error;
         }
+        // Since we are automatically confirming our users, we are going to log in
+        // the user using the same credentials once the signup is complete.
+        const credentials = Credentials.emailPassword(email, password);
+        const authenticatedUser = await app.logIn(credentials);
+        setUser(authenticatedUser);
+        //adds their username to the user's metadata through a separate request
+        await addUserMetadata(authenticatedUser, username, false)
+        return authenticatedUser;
+
     };
 
     // Function to fetch the user (if the user is already logged in) from local storage
@@ -67,7 +77,7 @@ export const UserProvider = ({ children }) => {
     }
 
     //function to fetch all of the user's cards from the database
-    const fetchData = async() => {
+    const fetchData = async () => {
         if (!app.currentUser) {
             return false;
         }
