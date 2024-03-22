@@ -2,7 +2,7 @@
 import { UserContext } from "../contexts/user.context";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
-import { useContext, React} from 'react';
+import { useContext, React } from 'react';
 
 
 export default function Home() {
@@ -22,16 +22,22 @@ export default function Home() {
             }
         }
         catch (error) {
-            alert(error)
+            alert(error);
         }
     }
     const logoutRedirect = () => {
-        navigate("/login")
+        navigate("/login");
     }
 
     //goes to the user's profile
     const onProfileView = async () => {
-        navigate("/profile")
+        navigate("/profile");
+    }
+
+    //goes to the user's trades
+    const onTradeView = async () => {
+        navigate("/trades");
+
     }
 
 
@@ -39,24 +45,32 @@ export default function Home() {
         <>
             <h1>Pixel Pundits Homepage :D</h1>
             <h2>Want to make a search?</h2>
-            <input 
-            type = "search"
-            name = "search"
+            <input
+                type="search"
+                name="search"
             ></input>
             <Button
                 variant="contained"
                 color="primary"
-                sx = {{marginLeft: '10px'}}
+                sx={{ marginLeft: '10px' }}
                 onClick={onLogout}>
                 Log Out
             </Button>
             <Button
                 variant="contained"
                 color="primary"
-                sx = {{marginLeft: '10px'}}
+                sx={{ marginLeft: '10px' }}
                 onClick={onProfileView}>
                 View Profile
             </Button>
+            <Button
+                variant="contained"
+                color="primary"
+                sx={{ marginLeft: '10px' }}
+                onClick={onTradeView}>
+                View Trades
+            </Button>
+            <Button></Button>
         </>
     )
 }

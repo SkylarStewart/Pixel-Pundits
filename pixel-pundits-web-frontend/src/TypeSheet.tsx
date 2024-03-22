@@ -28,3 +28,7 @@ export interface CardObj {
     setCode: string;
     cardId: number;
 }
+
+export interface Trade {
+    name: string;
+}
