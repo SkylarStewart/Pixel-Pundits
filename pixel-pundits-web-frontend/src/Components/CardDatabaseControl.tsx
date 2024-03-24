@@ -38,7 +38,7 @@ export async function addDBCard(user: any, form: CardObj): Promise<any> {
 
     //auth (adds the following as a header to our request to validate that the correct user gets the correct data)
     const headers = { Authorization: `Bearer ${user._accessToken}` };
-
+    
     //acutal processing
     try {
         await request(GRAPHQL_ENDPOINT, addCardQuery, queryVariables, headers);
@@ -213,7 +213,7 @@ export async function getUserFromUsername(user: any, usernameInput: string): Pro
         }
     }
     `;
-
+ 
     //filtering (empty for now, change if we need to do more)
     const queryVariables = { username: usernameInput };
 

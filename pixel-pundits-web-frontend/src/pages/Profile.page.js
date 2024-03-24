@@ -16,15 +16,15 @@ import SearchCardScryfall from "../ScryfallCalls/SearchCardScryfall";
 export default function Profile() {
 
     //example card (used for adding a test card)
-    // const [card, setCard] = useState([{
-    //     cardId: 123,
-    //     imageUrl: "test URL",
-    //     name: "test name",
-    //     price: 100,
-    //     print: "test print",
-    //     set: "test set",
-    //     setCode: 2345,
-    // }])
+    const [testCard, setCard] = useState({
+        cardId: 123,
+        imageUrl: "test URL",
+        name: "test name",
+        price: 100,
+        print: "test print", 
+        set: "test set",
+        setCode: 2345,
+    })
 
 
     const { user } = useContext(UserContext);
@@ -60,7 +60,7 @@ export default function Profile() {
     //runs when we add the example card to our database
     const onSubmit = async (event) => {
         event.preventDefault();
-        //addDBCard(user, card)
+        addDBCard(user, testCard)
 
     }
 
@@ -144,13 +144,13 @@ export default function Profile() {
             }
 
 
-            {/* {<Button
+             <Button
                 variant="contained"
                 color="primary"
                 sx={{ marginLeft: '10px' }}
                 onClick={onSubmit}>
                 ADD TEST CARD
-            </Button>} */}
+            </Button>
 
             <Button onClick={printArr}>Test Print</Button>
             <Button onClick={testSearch}>Test Query</Button>

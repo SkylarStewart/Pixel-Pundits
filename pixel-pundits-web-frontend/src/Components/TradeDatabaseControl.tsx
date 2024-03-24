@@ -10,6 +10,8 @@ import { GRAPHQL_ENDPOINT } from '../realm/constants';
 //adds a trade to the database after a user has made an offer.
 export async function addUserOfferTrade(user: any, otherUserID: any, offeredCardsIDs: any[], otherUserCardsIDs: any[]): Promise<any> {
 
+    console.log('added user trade');
+    
     //GraphQL query to add all of the stuff
     const addTradeQuery = gql`
     mutation addTrade($data: TradeInsertInput!) {
@@ -32,7 +34,7 @@ export async function addUserOfferTrade(user: any, otherUserID: any, offeredCard
     }
 
     //auth header
-    const headers = { Authorization: `Bearer $ {user._accessToken}` };
+    const headers = { Authorization: `Bearer ${user._accessToken}` };
 
     //actual processing
     try {
@@ -89,7 +91,7 @@ export async function getUserAcceptingTrades(user: any): Promise<any> {
     //gql query to get the trades where the user needs to accept the trade
     const getUserAcceptingTradesQuery = gql`
      query getUserAcceptingTrades($tradeAccepterId: ObjectId!) {
-         trades(query: {tradeMaker: $tradeAccepterId}) {
+         trades(query: {tradeAccepter: $tradeAccepterId}) {
              _id
              acceptStatus
              tradeAccepter
@@ -104,7 +106,7 @@ export async function getUserAcceptingTrades(user: any): Promise<any> {
 
     //filtering (empty for now, change if we need to do more)
     const queryVariables = {
-        tradeMakerId: user.id,
+        tradeAccepterId: user.id,
     };
 
     //auth (adds the following as a header to our request to validate that the correct user gets the correct  data)
@@ -153,6 +155,8 @@ export async function getUserTrades(user: any): Promise<any> {
     );
     return resp;
 }
+
+//get all trades that have a 
 
 //get all trades that have been completed and have a user in it
 export async function getUserCompletedTrades(user: any): Promise<any> {
@@ -275,5 +279,30 @@ export async function confirmTradeAsMaker(user: any, tradeId: any): Promise<any>
         return response;
     } catch (error) {
         console.error(error);
+    }
+}
+
+
+export async function deleteTrade(user: any, tradeId: any): Promise<any> {
+    const deleteTradeMutation = gql`
+    mutation deleteTrade($tradeId: ObjectId!) {
+        deleteOneTrade(query: {_id: $tradeId}) {
+            _id
+        }
+    }
+    `;
+
+    const queryVariables = {
+        tradeId: tradeId,
+    };
+
+    const headers = { Authorization: `Bearer ${user._accessToken}` };
+
+    try {
+        const response = await request(GRAPHQL_ENDPOINT, deleteTradeMutation, queryVariables, headers);
+        return response;
+    } catch (error) {
+        console.error("Error deleting the trade:", error);
+        throw error; // Re-throw the error to be handled by the caller
     }
 }

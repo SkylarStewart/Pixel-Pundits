@@ -30,5 +30,13 @@ export interface CardObj {
 }
 
 export interface Trade {
-    name: string;
+    _id: string;
+    acceptStatus: boolean;
+    tradeAccepter: string;
+    tradeAccepterCards: string[];
+    tradeAccepterConfirmation: false;
+    tradeMaker: string;
+    tradeMakerCards: string[];
+    tradeMakerConfirmation: boolean;
+
 }
