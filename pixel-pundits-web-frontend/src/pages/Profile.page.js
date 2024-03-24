@@ -10,7 +10,7 @@ import Inventory from "../Components/Inventory";
 import AddCardToCollection from "../Components/AddCardToCollection";
 import { getFullInventory, addDBCard, getUserFromUsername} from "../Components/CardDatabaseControl";
 import CardDisplayRow from "../Components/CardDisplayRow";
-import { Form, Row } from "react-bootstrap";
+import { Form, Row, Col } from "react-bootstrap";
 import SearchCardScryfall from "../ScryfallCalls/SearchCardScryfall";
 
 export default function Profile() {
@@ -58,11 +58,10 @@ export default function Profile() {
     }, [searchArr])
 
     //runs when we add the example card to our database
-    const onSubmit = async (event) => {
-        event.preventDefault();
-        //addDBCard(user, card)
-
-    }
+    // const onSubmit = async (event) => {
+    //     event.preventDefault();
+    //     //addDBCard(user, card)
+    // }
 
     function printArr() {
         console.log(inventory);
@@ -139,7 +138,12 @@ export default function Profile() {
 
             {
                 searchArr.map((card) => {
-                    return <CardDisplayRow key={card.cardId} card={card} />
+                    return <div key={card.cardId} style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
+                            <Row>
+                                <Col><CardDisplayRow card={card} /></Col>
+                                <Col><Button onClick={() => addDBCard(user, card)}> Add Card </Button></Col>
+                            </Row>
+                        </div>
                 })
             }
 
@@ -158,10 +162,11 @@ export default function Profile() {
             {
                 inventory.forEach((c) => {
                     //console.log(c);
-                    <Row>
-                        <CardDisplayRow card={c} />
-                    </Row>
-
+                    <div style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
+                        <Row>
+                            <CardDisplayRow card={c} />
+                        </Row>
+                    </div>
                 })
             }
 
