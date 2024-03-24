@@ -28,3 +28,15 @@ export interface CardObj {
     setCode: string;
     cardId: number;
 }
+
+export interface Trade {
+    _id: string;
+    acceptStatus: boolean;
+    tradeAccepter: string;
+    tradeAccepterCards: string[];
+    tradeAccepterConfirmation: false;
+    tradeMaker: string;
+    tradeMakerCards: string[];
+    tradeMakerConfirmation: boolean;
+
+}

@@ -10,6 +10,7 @@ import PrivateRoute from './pages/PrivateRoute.page';
 import Signup from './pages/Signup.page';
 import Profile from './pages/Profile.page';
 import NavigationBar from './Components/NavigationBar';
+import Trades from './pages/Trades.page';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route exact path="/" element={<Home />} />
             <Route exact path = "/profile" element = {<Profile />}></Route>
+            <Route exact path = "/trades" element = {<Trades />}></Route>
+
           </Route>
         </Routes>
       </UserProvider>
