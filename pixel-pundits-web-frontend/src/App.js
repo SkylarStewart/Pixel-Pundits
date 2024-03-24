@@ -9,6 +9,8 @@ import Login from './pages/Login.page';
 import PrivateRoute from './pages/PrivateRoute.page';
 import Signup from './pages/Signup.page';
 import Profile from './pages/Profile.page';
+import NavigationBar from './Components/NavigationBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
       {/* We are wrapping our whole app with UserProvider so that */}
       {/* our user is accessible through out the app from any page*/}
       <UserProvider>
+        <NavigationBar/>
         <Routes>
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
