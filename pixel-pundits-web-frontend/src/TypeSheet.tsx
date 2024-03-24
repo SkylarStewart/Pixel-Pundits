@@ -23,7 +23,7 @@ export interface CardObj {
     name: string;
     set: string;
     price: number;
-    imageUrl: string;
+    imageURL: string;
     print: string;
     setCode: string;
     cardId: number;

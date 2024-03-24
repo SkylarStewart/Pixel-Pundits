@@ -53,7 +53,7 @@ export default async function SearchCardScryfall(cardName: string, setCode: stri
                 if(card.card_faces && card.card_faces[0].image_uris){
                     arr.push({
                         name: card.name,
-                        imageUrl: card.card_faces[0].image_uris.small,
+                        imageURL: card.card_faces[0].image_uris.small,
                         price: cost,
                         set: card.set_name,
                         print: printing,
@@ -64,7 +64,7 @@ export default async function SearchCardScryfall(cardName: string, setCode: stri
                 else{
                     arr.push({
                         name: card.name,
-                        imageUrl: card.image_uris.small,
+                        imageURL: card.image_uris.small,
                         price: cost,
                         set: card.set_name,
                         print: printing,

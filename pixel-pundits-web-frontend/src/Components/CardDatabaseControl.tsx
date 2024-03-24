@@ -30,7 +30,7 @@ export async function addDBCard(user: any, form: CardObj): Promise<any> {
     const queryVariables = {
         data: {
             cardID: form.cardId,
-            imageURL: form.imageUrl,
+            imageURL: form.imageURL,
             name: form.name,
             price: form.price,
             print: form.print,

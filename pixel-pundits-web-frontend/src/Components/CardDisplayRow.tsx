@@ -12,7 +12,7 @@ const CardDisplayRow = ({card}: { card: CardObj}) =>{
         <Container>
             <Row>
                 <Col>
-                    <img src={card.imageUrl} alt={card.name} />
+                    <img src={card.imageURL} alt={card.name} />
                 </Col>
                 <Col>
                     <Row>Name: {card.name}</Row>
