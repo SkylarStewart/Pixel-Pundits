@@ -3,6 +3,7 @@ import { Button, Row, Col, Container } from 'react-bootstrap';
 import { Trade } from '../../TypeSheet';
 import { UserContext } from '../../contexts/user.context';
 import { updateAcceptStatus, deleteTrade, confirmTradeAsAccepter } from '../TradeDatabaseControl';
+import { getDBCard } from '../CardDatabaseControl';
 
 export default function TradeAcceptComponent({ trade }: { trade: Trade }) {
     const { user } = useContext(UserContext);

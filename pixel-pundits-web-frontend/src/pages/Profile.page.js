@@ -156,8 +156,8 @@ export default function Profile() {
                 ADD TEST CARD
             </Button>} */}
 
-            <Button onClick={printArr}>Test Print</Button>
-            <Button onClick={testSearch}>Test Query</Button>
+            {/* <Button onClick={printArr}>Test Print</Button>
+            <Button onClick={testSearch}>Test Query</Button> */}
 
             {
                 inventory.forEach((c) => {
@@ -171,7 +171,7 @@ export default function Profile() {
             }
 
             <div>
-                <AddCardToCollection setInventory={setInventory} />
+                <h1>Inventory</h1>
                 <Inventory cards={inventory} helperFunction={afterDelete} />
             </div>
 

@@ -100,7 +100,7 @@ export async function getDBCard(user: any, _id: any): Promise<any> {
             _id
             cardID
             imageURL
-            cardName
+            name
             price
             print
             set
