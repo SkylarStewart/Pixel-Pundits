@@ -11,7 +11,7 @@ import AddCardToCollection from "../Components/AddCardToCollection";
 import { getFullInventory, addDBCard} from "../Components/CardDatabaseControl";
 import { getUserFromUsername } from "../Components/SocialDatabaseControl";
 import CardDisplayRow from "../Components/CardDisplayRow";
-import { Form, Row, Col } from "react-bootstrap";
+import { Form, Row, Col, Container } from "react-bootstrap";
 import SearchCardScryfall from "../ScryfallCalls/SearchCardScryfall";
 
 export default function Profile() {
@@ -119,33 +119,40 @@ export default function Profile() {
             <Form>
                 <Form.Group controlId="cardName">
                     <Form.Label>Card Name:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={searchCardName}
-                        onChange={handleSearchCardNameChange}
-                    />
+                    <Col xs={4} sm={4} md={4} lg={4} xl={4}>
+                        <Form.Control
+                            type="text"
+                            value={searchCardName}
+                            onChange={handleSearchCardNameChange}
+                        />
+                    </Col>
                 </Form.Group>
                 <Form.Group controlId="cardSet">
                     <Form.Label>Set Code:</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={searchCardSet}
-                        onChange={handleSearchCardSetChange}
-                    />
+                     <Col xs={4} sm={4} md={4} lg={4} xl={4}>
+                        <Form.Control
+                            type="text"
+                            value={searchCardSet}
+                            onChange={handleSearchCardSetChange}
+                        />
+                    </Col>
                 </Form.Group>
             </Form>
 
             <Button onClick={searchAPI} class="btn btn-primary"> Search </Button>
 
             {
-                (searchArr.length > 1) &&
+                (searchArr[0].name) &&
                 searchArr.map((card) => {
-                    return <div key={card.cardId} style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
-                            <Row>
+                    return <Container key={card.name}>
+                            <Row className="justify-content-center">
                                 <Col><CardDisplayRow card={card} /></Col>
-                                <Col><Button onClick={() => addDBCard(user, card)} class="btn btn-primary"> Add Card </Button></Col>
+                                <Col xs={2} sm={2} md={2} lg={2} xl={2} className="d-flex align-items-center justify-content-center">
+                                    <Button onClick={() => addDBCard(user, card)} class="btn btn-primary"> Add Card </Button>
+                                </Col>
                             </Row>
-                        </div>
+                            <hr/>
+                        </Container>
                 })
             }
 
@@ -176,6 +183,8 @@ export default function Profile() {
                 <h1>Inventory</h1>
                 <Inventory cards={inventory} helperFunction={afterDelete} />
             </div>
+
+            <br/>
 
         </>
     );

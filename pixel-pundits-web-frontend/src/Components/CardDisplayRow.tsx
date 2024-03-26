@@ -15,6 +15,8 @@ const CardDisplayRow = ({card}: { card: CardObj}) =>{
                     <img src={card.imageURL} alt={card.name} />
                 </Col>
                 <Col>
+                    <br/><br/>
+                    <Row>Card Information:</Row>
                     <Row>Name: {card.name}</Row>
                     <Row>Set: {card.set}</Row>
                     <Row>Price: ${card.price}</Row>
