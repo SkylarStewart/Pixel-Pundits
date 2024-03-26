@@ -113,7 +113,8 @@ export default function Profile() {
     return (
         <>
             <h1>User Profile</h1>
-            <p>user email: {user._profile.data.email}</p>
+            <p>User Email: {user._profile.data.email}</p>
+            {user._profile.data.username && <p>Username: {user._profile.data.username}</p>} {/* WIP, need variable name??*/}
 
             <Form>
                 <Form.Group controlId="cardName">
@@ -134,14 +135,15 @@ export default function Profile() {
                 </Form.Group>
             </Form>
 
-            <Button onClick={searchAPI}> Search </Button>
+            <Button onClick={searchAPI} class="btn btn-primary"> Search </Button>
 
             {
+                (searchArr.length > 1) &&
                 searchArr.map((card) => {
                     return <div key={card.cardId} style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
                             <Row>
                                 <Col><CardDisplayRow card={card} /></Col>
-                                <Col><Button onClick={() => addDBCard(user, card)}> Add Card </Button></Col>
+                                <Col><Button onClick={() => addDBCard(user, card)} class="btn btn-primary"> Add Card </Button></Col>
                             </Row>
                         </div>
                 })
