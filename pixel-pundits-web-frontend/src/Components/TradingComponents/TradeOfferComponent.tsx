@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Row, Col, Container } from 'react-bootstrap';
-import { Trade, CardObj } from '../../TypeSheet';
+import { Trade, CardObj, ParsedTrade } from '../../TypeSheet';
 import { UserContext } from '../../contexts/user.context';
 import { updateAcceptStatus, deleteTrade, confirmTradeAsMaker } from '../TradeDatabaseControl';
 import CardDisplayRow from '../CardDisplayRow';
 import { getDBCard } from '../CardDatabaseControl';
 
-export default function TradeOfferComponent({ trade }: { trade: Trade }) {
+export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
     const { user } = useContext(UserContext);
     
     function convertDBtoCardOBJ(card: Promise<any>){
@@ -41,23 +41,22 @@ export default function TradeOfferComponent({ trade }: { trade: Trade }) {
         <Container>
             <Row>
                 <Col>
-                    {/* Intentionally left blank or you can add content here if needed */}
-                </Col>
-                <Col>
-                    <Row>Trade Initializer: {trade.tradeMaker}</Row>
+                    <Row><b>Trade Initializer: {trade.tradeMaker}</b></Row>
                     <Row>Cards Being Offered: </Row>
                     <Row>
-                        {trade.tradeMakerCards.map((card, index) => (
+                        {trade.tradeMakerCardsDetails.map((card, index) => (
                             <Container key={index}>
-                                <CardDisplayRow card={convertDBtoCardOBJ(getDBCard(user, card))}/>
+                                <CardDisplayRow card={card}/>
+                                <hr/>
                             </Container>
                         ))}
                     </Row>
                     <Row>Cards Being Asked for: </Row>
                     <Row>
-                        {trade.tradeAccepterCards.map((card, index) => (
+                        {trade.tradeAccepterCardsDetails.map((card, index) => (
                             <Container key={index}>
-                                <p>{card}</p>
+                                <CardDisplayRow card={card}/>
+                                <hr/>
                             </Container>
                         ))}
                     </Row>
