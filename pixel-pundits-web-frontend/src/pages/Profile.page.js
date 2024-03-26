@@ -8,7 +8,8 @@ import { UserContext } from "../contexts/user.context";
 import { Button } from "@mui/material";
 import Inventory from "../Components/Inventory";
 import AddCardToCollection from "../Components/AddCardToCollection";
-import { getFullInventory, addDBCard, getUserFromUsername} from "../Components/CardDatabaseControl";
+import { getFullInventory, addDBCard} from "../Components/CardDatabaseControl";
+import { getUserFromUsername } from "../Components/SocialDatabaseControl";
 import CardDisplayRow from "../Components/CardDisplayRow";
 import { Form, Row, Col } from "react-bootstrap";
 import SearchCardScryfall from "../ScryfallCalls/SearchCardScryfall";
@@ -46,7 +47,6 @@ export default function Profile() {
             .catch(function (error) {
                 console.error('Error:', error);
             });
-        console.log(searchArr);
     }
 
     useEffect(() => {
@@ -113,7 +113,8 @@ export default function Profile() {
     return (
         <>
             <h1>User Profile</h1>
-            <p>user email: {user._profile.data.email}</p>
+            <p>User Email: {user._profile.data.email}</p>
+            {user._profile.data.username && <p>Username: {user._profile.data.username}</p>} {/* WIP, need variable name??*/}
 
             <Form>
                 <Form.Group controlId="cardName">
@@ -134,14 +135,15 @@ export default function Profile() {
                 </Form.Group>
             </Form>
 
-            <Button onClick={searchAPI}> Search </Button>
+            <Button onClick={searchAPI} class="btn btn-primary"> Search </Button>
 
             {
+                (searchArr.length > 1) &&
                 searchArr.map((card) => {
                     return <div key={card.cardId} style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
                             <Row>
                                 <Col><CardDisplayRow card={card} /></Col>
-                                <Col><Button onClick={() => addDBCard(user, card)}> Add Card </Button></Col>
+                                <Col><Button onClick={() => addDBCard(user, card)} class="btn btn-primary"> Add Card </Button></Col>
                             </Row>
                         </div>
                 })

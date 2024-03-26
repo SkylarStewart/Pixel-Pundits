@@ -3,6 +3,7 @@ import { UserContext } from "../contexts/user.context";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { useContext, React} from 'react';
+import UserSearch from "../Components/UserSearch";
 
 
 export default function Home() {
@@ -39,10 +40,7 @@ export default function Home() {
         <>
             <h1>Pixel Pundits Homepage :D</h1>
             <h2>Want to make a search?</h2>
-            <input 
-            type = "search"
-            name = "search"
-            ></input>
+            <UserSearch/>
             <Button
                 variant="contained"
                 color="primary"
