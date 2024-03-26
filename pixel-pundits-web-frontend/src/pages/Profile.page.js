@@ -8,7 +8,8 @@ import { UserContext } from "../contexts/user.context";
 import { Button } from "@mui/material";
 import Inventory from "../Components/Inventory";
 import AddCardToCollection from "../Components/AddCardToCollection";
-import { getFullInventory, addDBCard, getUserFromUsername} from "../Components/CardDatabaseControl";
+import { getFullInventory, addDBCard} from "../Components/CardDatabaseControl";
+import { getUserFromUsername } from "../Components/SocialDatabaseControl";
 import CardDisplayRow from "../Components/CardDisplayRow";
 import { Form, Row, Col } from "react-bootstrap";
 import SearchCardScryfall from "../ScryfallCalls/SearchCardScryfall";
@@ -46,7 +47,6 @@ export default function Profile() {
             .catch(function (error) {
                 console.error('Error:', error);
             });
-        console.log(searchArr);
     }
 
     useEffect(() => {

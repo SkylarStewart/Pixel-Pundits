@@ -61,7 +61,6 @@ export async function addDBCard(user: any, form: CardObj): Promise<any> {
 //Removes a card from the inventory of the current user
 //WIP
 export async function deleteDBCard(user: any, _id: any, deleteHelper: any): Promise<any> {
-
     //GraphQL query to delete a card
     const deleteCardQuery = gql`
     mutation DeleteCard($query: CardQueryInput!) {
@@ -80,7 +79,7 @@ export async function deleteDBCard(user: any, _id: any, deleteHelper: any): Prom
     if (!resp) return;
 
     try {
-        await request(GRAPHQL_ENDPOINT, deleteCardQuery, queryVariables, headers);
+        const resp = await request(GRAPHQL_ENDPOINT, deleteCardQuery, queryVariables, headers);
         deleteHelper();
     }
     catch (error) {
@@ -131,8 +130,8 @@ export async function getFullInventory(user: any): Promise<any> {
 
     //graphql query to fetch all cards from a user's inventory (the collection):
     const getFullInventoryQuery = gql`
-    query getFullInventory {
-        cards {
+    query getFullInventory($ownerId: ObjectId!) {
+        cards(query: {owner: $ownerId}) {
             _id
             cardID
             imageURL
@@ -147,7 +146,9 @@ export async function getFullInventory(user: any): Promise<any> {
     `;
 
     //filtering (empty for now, change if we need to do more)
-    const queryVariables = {};
+    const queryVariables = {
+    ownerId: user.id
+};
 
     //auth (adds the following as a header to our request to validate that the correct user gets the correct data)
     const headers = { Authorization: `Bearer ${user._accessToken}` }
@@ -199,41 +200,40 @@ export async function addUserMetadata(user: any, username: string, privateStatus
 
 }
 
-//retrieves a user's ID based off of their username
-//will retrieve multiple users if required
-export async function getUserFromUsername(user: any, usernameInput: string): Promise<any> {
-    console.log("this is a test");
-
-    const getUserFromUsernameQuery = gql`
-    query getUserDatum($username: String!) {
-        userData(query: {username: $username}) {
+// Function to retrieve all cards with a matching name from the MongoDB collection
+export async function getCardsByName(user: any, cardName: string): Promise<any> {
+    // GraphQL query to retrieve cards by name
+    const getCardsByNameQuery = gql`
+    query GetCardsByName($name: String!, $ownerId: ObjectId!) {
+        cards(query: {name: $name, owner_ne: $ownerId}) {
             _id
-            private
-            username
-            user_id
+            cardID
+            imageURL
+            name
+            price
+            print
+            set
+            setCode
+            owner
         }
     }
     `;
 
-    //filtering (empty for now, change if we need to do more)
-    const queryVariables = { username: usernameInput };
+    // Defining query variables with the card name
+    const queryVariables = {
+        name: cardName,
+        ownerId: user.id
+    };
 
-    //auth (adds the following as as header to our request to validate that the correct user gets the correct data)
-    const headers = { Authorization: `Bearer ${user._accessToken}` }
+    // Adding the authorization header to validate the user
+    const headers = { Authorization: `Bearer ${user._accessToken}` };
 
-    //actual processing
-    const resp = await request(GRAPHQL_ENDPOINT,
-        getUserFromUsernameQuery,
-        queryVariables,
-        headers
-    );
-
-    return resp;
+    // Processing the query
+    try {
+        const resp = await request(GRAPHQL_ENDPOINT, getCardsByNameQuery, queryVariables, headers);
+        return resp; // Assuming the response object has a cards field containing the results
+    } catch (error) {
+        console.error('Error fetching cards by name:', error);
+        throw error;
+    }
 }
-
-//test function (COMMENT THIS SHIT OUT GOD DAMN!!!!!)
-// function testing() {
-//     const { user } = useContext(UserContext);
-// }
-
-//function to get a user's individual ID
