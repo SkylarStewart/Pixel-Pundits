@@ -11,15 +11,20 @@ export default function Inventory({ cards, helperFunction}) {
 
     const {user} = useContext(UserContext)
 
+    const style = {
+        paddingTop: '1rem',
+        paddingBottom: '1rem',
+        border: '1px solid black'
+    };
 
     return (
         <Container>
             {cards.map((card, index) => ( // Use .map instead of .forEach
-                <div key={card.cardId} style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
+                <div key={card.cardId} style={style}>
                     <Container key={index}> {/* Add a unique key prop here */}
-                        <Row>
+                        <Row className="justify-content-center">
                             <Col><CardDisplayRow card={card} /></Col>
-                            <Col>
+                            <Col xs={2} sm={2} md={2} lg={2} xl={2}>
                                 <Button onClick={() => deleteDBCard(user, card.cardId, helperFunction)}> Remove Card </Button>
                             </Col>
                         </Row>
