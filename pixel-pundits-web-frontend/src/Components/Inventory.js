@@ -15,12 +15,16 @@ export default function Inventory({ cards, helperFunction}) {
     return (
         <Container>
             {cards.map((card, index) => ( // Use .map instead of .forEach
-                <Container key={index}> {/* Add a unique key prop here */}
-                    <CardDisplayRow card={card} />
-                    <Col>
-                        <Button onClick={() => deleteDBCard(user, card.cardId, helperFunction)}> Remove Card </Button>
-                    </Col>
-                </Container>
+                <div key={card.cardId} style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
+                    <Container key={index}> {/* Add a unique key prop here */}
+                        <Row>
+                            <Col><CardDisplayRow card={card} /></Col>
+                            <Col>
+                                <Button onClick={() => deleteDBCard(user, card.cardId, helperFunction)}> Remove Card </Button>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
             ))}
         </Container>
     )
