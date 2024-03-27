@@ -1,13 +1,23 @@
 import React from 'react';
-import { Row, Col, Button, Container, Form } from 'react-bootstrap';
+import { Row, Col, Button, Container, Form, Image } from 'react-bootstrap';
 import { useContext, useState } from 'react';
 import { getUserFromUsername } from './SocialDatabaseControl';
 import { getCardsByName } from './CardDatabaseControl';
 import { UserContext } from '../contexts/user.context';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserSearch() {
 
+    let navigate = useNavigate();
     const { user } = useContext(UserContext);
+
+
+    const handleTradeNavigate = (data) => {
+        navigate('/maketrade', { state: data });
+        console.log(data);
+
+    }
+
     //state controls
     const [searchValue, setSearchValue] = useState("");
     const [searchType, setSearchType] = useState("users");
@@ -17,9 +27,6 @@ export default function UserSearch() {
     const handleSearchChange = (event) => {
         setSearchValue(event.target.value);
     }
-
-    //state control for search results (users by username, cards, etc)
-    const [contentDisplayed, setContentDisplayed] = useState(null);
 
     //Handler for changing search type
     const handleSearchTypeChange = (event) => {
@@ -33,7 +40,7 @@ export default function UserSearch() {
     const searchUsers = async () => {
         await getUserFromUsername(user, searchValue)
             .then(function (users) {
-                return setReturnedUsers(users);
+                return setReturnedUsers(users.userData);
             })
             .then(function () {
                 console.log("Found users successfully.");
@@ -48,7 +55,7 @@ export default function UserSearch() {
     const searchCards = async () => {
         await getCardsByName(user, searchValue)
             .then(function (cards) {
-                return setReturnedCards(cards);
+                return setReturnedCards(cards.cards);
             })
             .then(function () {
                 console.log("Found cards successfully.");
@@ -116,6 +123,37 @@ export default function UserSearch() {
                     onChange={handleSearchTypeChange}
                 />
             </div>
+            {/*rendering for cards and users*/}
+            <Container style={{marginLeft: '0'}}>
+                {returnedUsers.map((user, index) => (
+                    <div key={index}>
+                        <Container>
+                            <Row className="align-items-center" style={{ maxWidth: '350px', width: '90vw', marginTop: '10px', marginBottom: '20px' }}>
+                                {/* Profile Picture */}
+                                <Col xs="auto">
+                                    <Image src={'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/340px-Default_pfp.svg.png'} roundedCircle style={{ width: '50px', height: '50px' }} />
+                                </Col>
+                                {/* Username */}
+                                <Col>
+                                    <h4 className="mb-0">{user.username}</h4>
+                                </Col>
+                                {/* Trade Button */}
+                                <Col xs="auto">
+                                    <Button onClick={() => handleTradeNavigate({ id: '66037d91d443583424b57fee' })}>Trade with User</Button>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </div>
+                ))}
+            </Container>
+            <Container>
+                {returnedCards.map((card, index) => (
+                    <Container key={index}>
+                        <p>{card.name}</p>
+                    </Container>
+                ))}
+            </Container>
+
         </>
     );
 }
