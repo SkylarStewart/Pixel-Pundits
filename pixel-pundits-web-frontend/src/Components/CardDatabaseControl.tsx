@@ -94,8 +94,8 @@ export async function getDBCard(user: any, _id: any): Promise<any> {
 
     //GraphQL query to retreive a
     const getCardQuery = gql`
-    query getCard(_id: $_id) {
-        cards {
+    query getCard($id: ObjectId) {
+        cards(query: {_id: $id}) {
             _id
             cardID
             imageURL
@@ -110,7 +110,7 @@ export async function getDBCard(user: any, _id: any): Promise<any> {
     `;
 
     //filtering (empty for now, change if we need to do more)
-    const queryVariables = {};
+    const queryVariables = { id: _id };
 
     //auth (adds the following as a header to our request to validate that the correct user gets the correct data)
     const headers = { Authorization: `Bearer ${user._accessToken}` };
@@ -147,8 +147,8 @@ export async function getFullInventory(user: any): Promise<any> {
 
     //filtering (empty for now, change if we need to do more)
     const queryVariables = {
-    ownerId: user.id
-};
+        ownerId: user.id
+    };
 
     //auth (adds the following as a header to our request to validate that the correct user gets the correct data)
     const headers = { Authorization: `Bearer ${user._accessToken}` }
@@ -234,6 +234,42 @@ export async function getCardsByName(user: any, cardName: string): Promise<any> 
         return resp; // Assuming the response object has a cards field containing the results
     } catch (error) {
         console.error('Error fetching cards by name:', error);
+        throw error;
+    }
+}
+
+export async function getCardsByArrayOfIds(user: any, cardIds: string[]): Promise<any> {
+    // GraphQL query to retrieve cards by an array of IDs
+    const getCardsByArrayOfIdsQuery = gql`
+    query getCardsByArrayOfIds($ids: [ObjectId!]) {
+        cards(query: {_id_in: $ids}) {
+            _id
+            cardID
+            imageURL
+            name
+            price
+            print
+            set
+            setCode
+            owner
+        }
+    }
+    `;
+
+    // Defining query variables with the array of card IDs
+    const queryVariables = {
+        ids: cardIds
+    };
+
+    // Adding the authorization header to validate the user
+    const headers = { Authorization: `Bearer ${user._accessToken}` };
+
+    // Processing the query
+    try {
+        const resp = await request(GRAPHQL_ENDPOINT, getCardsByArrayOfIdsQuery, queryVariables, headers);
+        return resp; // Assuming the response object has a cards field containing the results
+    } catch (error) {
+        console.error('Error fetching cards by array of IDs:', error);
         throw error;
     }
 }

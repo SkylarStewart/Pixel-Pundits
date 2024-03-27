@@ -6,6 +6,8 @@ import TradeAcceptComponent from '../Components/TradingComponents/TradeAcceptCom
 import TradeOfferComponent from '../Components/TradingComponents/TradeOfferComponent';
 import TradeConfirmComponent from '../Components/TradingComponents/TradeConfirmComponent';
 import { getUserOfferTrades, getUserAcceptingTrades, getUserCompletedTrades, addUserOfferTrade } from "../Components/TradeDatabaseControl";
+import { getCardsByArrayOfIds, getDBCard } from "../Components/CardDatabaseControl";
+import { getUserFromId } from "../Components/SocialDatabaseControl";
 import { UserContext } from "../contexts/user.context";
 
 //TEST PAGE for showing that the trade mechanic works as intended.=
@@ -30,47 +32,119 @@ export default function Trades() {
 
     //async helper function for loading offered trades
     const loadOfferedTrades = async () => {
-        await getUserOfferTrades(user)
-            .then(function (tradeReturn) {
-                return setOfferedTrades(tradeReturn.trades);
-            })
-            .then(function () {
-                console.log("Offered Trades Loaded Successfully");
-                // Any further actions after setting tshe inventory
-            })
-            .catch(function (error) {
-                console.error('Error:', error);
-            });
-    }
+        try {
+            const tradeResult = await getUserOfferTrades(user);
+            const tradesWithCardDetails = await Promise.all(tradeResult.trades.map(async (trade) => {
+                // Gets card details for the cards you're offering (trademaker)
+                const tradeMakerCardsResponse = await getCardsByArrayOfIds(user, trade.tradeMakerCards);
+                // Gets card details for the cards you've offered (trade accepter)
+                const tradeAccepterCardsResponse = await getCardsByArrayOfIds(user, trade.tradeAccepterCards);
+
+                // Assuming getCardsByArrayOfIds returns an object with a cards field
+                const tradeMakerCardsDetails = tradeMakerCardsResponse.cards;
+                const tradeAccepterCardsDetails = tradeAccepterCardsResponse.cards;
+
+
+                // // Fetch metadata for the trade accepter and trade offerer
+                const tradeMakerMetadataResponse = await getUserFromId(user, trade.tradeMaker);
+                const tradeAccepterMetadataResponse = await getUserFromId(user, trade.tradeAccepter);
+
+                const tradeMakerDetails = tradeMakerMetadataResponse;
+                const tradeAccepterDetails = tradeAccepterMetadataResponse;
+
+                // Enhance the trade object with detailed card information
+                return {
+                    ...trade,
+                    tradeMakerCardsDetails,
+                    tradeAccepterCardsDetails,
+                    tradeMakerDetails,
+                    tradeAccepterDetails,
+                };
+            }));
+
+            setOfferedTrades(tradesWithCardDetails);
+            console.log(offeredTrades);
+        } catch (error) {
+            console.error('Error loading offered trades with card details:', error);
+        }
+    };
 
     //async helper function for loading trades that are incoming
     const loadAcceptingTrades = async () => {
-        await getUserAcceptingTrades(user)
-            .then(function (tradeReturn) {
-                return setAcceptTrades(tradeReturn.trades);
-            })
-            .then(function () {
-                console.log("Accept Trades Loaded Successfully");
-                // Any further actions after setting tshe inventory
-            })
-            .catch(function (error) {
-                console.error('Error:', error);
-            });
+        try {
+            const tradeResult = await getUserAcceptingTrades(user);
+            const tradesWithCardDetails = await Promise.all(tradeResult.trades.map(async (trade) => {
+                // Gets card details for the cards you're offering (trademaker)
+                const tradeMakerCardsResponse = await getCardsByArrayOfIds(user, trade.tradeMakerCards);
+                // Gets card details for the cards you've offered (trade accepter)
+                const tradeAccepterCardsResponse = await getCardsByArrayOfIds(user, trade.tradeAccepterCards);
+
+                // Assuming getCardsByArrayOfIds returns an object with a cards field
+                const tradeMakerCardsDetails = tradeMakerCardsResponse.cards;
+                const tradeAccepterCardsDetails = tradeAccepterCardsResponse.cards;
+
+
+                // // Fetch metadata for the trade accepter and trade offerer
+                const tradeMakerMetadataResponse = await getUserFromId(user, trade.tradeMaker);
+                const tradeAccepterMetadataResponse = await getUserFromId(user, trade.tradeAccepter);
+
+                const tradeMakerDetails = tradeMakerMetadataResponse;
+                const tradeAccepterDetails = tradeAccepterMetadataResponse;
+
+                // Enhance the trade object with detailed card information
+                return {
+                    ...trade,
+                    tradeMakerCardsDetails,
+                    tradeAccepterCardsDetails,
+                    tradeMakerDetails,
+                    tradeAccepterDetails,
+                };
+            }));
+
+            setAcceptTrades(tradesWithCardDetails);
+            console.log(acceptTrades);
+        } catch (error) {
+            console.error('Error loading offered trades with card details:', error);
+        }
     }
 
     //effect hook for loading trades that have already been completed
     const loadCompletedTrades = async () => {
-        await getUserCompletedTrades(user)
-            .then(function (tradeReturn) {
-                return setCompletedTrades(tradeReturn.trades);
-            })
-            .then(function () {
-                console.log("Accept Trades Loaded Successfully");
-                // Any further actions after setting tshe inventory
-            })
-            .catch(function (error) {
-                console.error('Error:', error);
-            });
+        try {
+            const tradeResult = await getUserCompletedTrades(user);
+            const tradesWithCardDetails = await Promise.all(tradeResult.trades.map(async (trade) => {
+                // Gets card details for the cards you're offering (trademaker)
+                const tradeMakerCardsResponse = await getCardsByArrayOfIds(user, trade.tradeMakerCards);
+                // Gets card details for the cards you've offered (trade accepter)
+                const tradeAccepterCardsResponse = await getCardsByArrayOfIds(user, trade.tradeAccepterCards);
+
+                // Assuming getCardsByArrayOfIds returns an object with a cards field
+                const tradeMakerCardsDetails = tradeMakerCardsResponse.cards;
+                const tradeAccepterCardsDetails = tradeAccepterCardsResponse.cards;
+
+
+                // // Fetch metadata for the trade accepter and trade offerer
+                const tradeMakerMetadataResponse = await getUserFromId(user, trade.tradeMaker);
+                const tradeAccepterMetadataResponse = await getUserFromId(user, trade.tradeAccepter);
+
+                const tradeMakerDetails = tradeMakerMetadataResponse;
+                const tradeAccepterDetails = tradeAccepterMetadataResponse;
+
+                // Enhance the trade object with detailed card information
+                return {
+                    ...trade,
+                    tradeMakerCardsDetails,
+                    tradeAccepterCardsDetails,
+                    tradeMakerDetails,
+                    tradeAccepterDetails,
+                };
+            }));
+
+            setCompletedTrades(tradesWithCardDetails);
+            console.log(completedTrades);
+        } catch (error) {
+            console.error('Error loading offered trades with card details:', error);
+        }
     }
 
     useEffect(() => {

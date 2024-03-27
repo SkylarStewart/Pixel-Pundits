@@ -35,3 +35,34 @@ export async function getUserFromUsername(user: any, usernameInput: string): Pro
 
     return resp;
 }
+
+//retrieves a user's ID based off of their ID
+export async function getUserFromId(user: any, id: string): Promise<any> {
+    console.log("this is a test");
+
+    const getUserFromIdQuery = gql`
+    query getUserDatum($id: ObjectId!) {
+        userData(query: {user_id: $id}) {
+            _id
+            private
+            username
+            user_id
+        }
+    }
+    `;
+
+    //filtering (empty for now, change if we need to do more)
+    const queryVariables = { id: id};
+
+    //auth (adds the following as as header to our request to validate that the correct user gets the correct data)
+    const headers = { Authorization: `Bearer ${user._accessToken}` }
+
+    //actual processing
+    const resp = await request(GRAPHQL_ENDPOINT,
+        getUserFromIdQuery,
+        queryVariables,
+        headers
+    );
+
+    return resp;
+}

@@ -87,6 +87,7 @@ export async function getUserOfferTrades(user: any): Promise<any> {
         queryVariables,
         headers
     );
+
     return resp;
 
 }

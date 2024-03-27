@@ -40,3 +40,19 @@ export interface Trade {
     tradeMakerConfirmation: boolean;
 
 }
+
+export interface ParsedTrade {
+    _id: string;
+    acceptStatus: boolean;
+    tradeAccepter: string;
+    tradeAccepterCards: string[];
+    tradeAccepterCardsDetails: CardObj[];
+    tradeAccepterConfirmation: false;
+    tradeAccepterDetails: JSON;
+    tradeMaker: string;
+    tradeMakerDetails: JSON;
+    tradeMakerCards: string[];
+    tradeMakerCardsDetails: CardObj[];
+    tradeMakerConfirmation: boolean;
+
+}
