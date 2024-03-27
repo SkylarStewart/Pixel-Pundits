@@ -2,8 +2,9 @@
 import { UserContext } from "../contexts/user.context";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
-import { useContext, React} from 'react';
+import { useContext, React } from 'react';
 import UserSearch from "../Components/UserSearch";
+import TradeMakerMenu from "../Components/TradingComponents/TradeMakerMenu";
 
 
 export default function Home() {
@@ -38,20 +39,20 @@ export default function Home() {
 
     return (
         <>
-            <h1>Pixel Pundits Homepage :D</h1>
-            <h2>Want to make a search?</h2>
-            <UserSearch/>
+            <h1>Pixel Pundits: The App</h1>
+            <h2>Want to make a trade?</h2>
+            <UserSearch />
             <Button
                 variant="contained"
                 color="primary"
-                sx = {{marginLeft: '10px'}}
+                sx={{ marginLeft: '10px' }}
                 onClick={onLogout}>
                 Log Out
             </Button>
             <Button
                 variant="contained"
                 color="primary"
-                sx = {{marginLeft: '10px'}}
+                sx={{ marginLeft: '10px' }}
                 onClick={onProfileView}>
                 View Profile
             </Button>

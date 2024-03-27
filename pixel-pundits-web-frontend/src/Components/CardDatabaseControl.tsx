@@ -273,3 +273,40 @@ export async function getCardsByArrayOfIds(user: any, cardIds: string[]): Promis
         throw error;
     }
 }
+
+//returns the full inventory of the user with the ID passed in
+export async function getInventoryFromId(user: any, id: string): Promise<any> {
+
+    //graphql query to fetch all cards from a user's inventory (the collection):
+    const getFullInventoryQuery = gql`
+    query getFullInventory($ownerId: ObjectId!) {
+        cards(query: {owner: $ownerId}) {
+            _id
+            cardID
+            imageURL
+            name
+            price
+            print
+            set
+            setCode
+            owner
+        }
+    }
+    `;
+
+    //filtering (empty for now, change if we need to do more)
+    const queryVariables = {
+        ownerId: id
+    };
+
+    //auth (adds the following as a header to our request to validate that the correct user gets the correct data)
+    const headers = { Authorization: `Bearer ${user._accessToken}` }
+
+    //actual processing
+    const resp = await request(GRAPHQL_ENDPOINT,
+        getFullInventoryQuery,
+        queryVariables,
+        headers
+    );
+    return resp;
+}

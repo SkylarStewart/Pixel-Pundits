@@ -9,6 +9,7 @@ import { getUserOfferTrades, getUserAcceptingTrades, getUserCompletedTrades, add
 import { getCardsByArrayOfIds, getDBCard } from "../Components/CardDatabaseControl";
 import { getUserFromId } from "../Components/SocialDatabaseControl";
 import { UserContext } from "../contexts/user.context";
+import TradeMakerMenu from '../Components/TradingComponents/TradeMakerMenu';
 
 //TEST PAGE for showing that the trade mechanic works as intended.=
 export default function Trades() {
