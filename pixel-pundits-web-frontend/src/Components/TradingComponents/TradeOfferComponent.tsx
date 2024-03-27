@@ -37,11 +37,20 @@ export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
         };
     }
 
+    interface TradeMakerDetails {
+        userData: any[];
+        // Add other properties if needed
+    }
+
+    function isTradeMakerDetails(obj: any): obj is TradeMakerDetails {
+        return 'userData' in obj;
+    }
+
     return (
         <Container>
             <Row>
                 <Col>
-                    <Row><b>Trade Initializer: {trade.tradeMaker}</b></Row>
+                    {isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><b>Trade Recipient: {trade.tradeAccepterDetails.userData[0].username}</b></Row>}
                     <Row>Cards Being Offered: </Row>
                     <Row>
                         {trade.tradeMakerCardsDetails.map((card, index) => (

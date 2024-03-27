@@ -40,14 +40,24 @@ export default function TradeConfirmComponent({ trade }: { trade: ParsedTrade })
         };
     }
 
+    interface TradeMakerDetails {
+        userData: any[];
+        // Add other properties if needed
+    }
+
+    function isTradeMakerDetails(obj: any): obj is TradeMakerDetails {
+        return 'userData' in obj;
+    }
+
     return (
         <Container>
             <Row>
                 <Col>
-                    <p>TRADE WITH ID: {trade.tradeMaker}</p>
-                </Col>
-                <Col>
-                    <Row>Trade Initializer: {trade.tradeMaker}</Row>
+                    {
+                        (isTradeMakerDetails(trade.tradeAccepterDetails) && trade.tradeAccepterDetails.userData.length > 0 && user.username === trade.tradeAccepterDetails.userData[0].username) ?
+                        (isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><b>Trade Partner: {trade.tradeAccepterDetails.userData[0].username}</b></Row>):
+                        (isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><b>Trade Partner: {trade.tradeAccepterDetails.userData[0].username}</b></Row>)
+                    }  
                     <Row>Their Cards:  </Row>
                     <Row>
                         {trade.tradeMakerCardsDetails.map((card, index) => (

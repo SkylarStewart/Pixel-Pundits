@@ -37,14 +37,20 @@ export default function TradeAcceptComponent({ trade }: { trade: ParsedTrade }) 
         };
     }
 
+    interface TradeMakerDetails {
+        userData: any[];
+        // Add other properties if needed
+    }
+
+    function isTradeMakerDetails(obj: any): obj is TradeMakerDetails {
+        return 'userData' in obj;
+    }
+
     return (
         <Container>
             <Row>
                 <Col>
-                    <p>TRADE WITH ID: {trade._id}</p> {/* Assuming you meant to display trade._id here */}
-                </Col>
-                <Col>
-                    <Row>Trade Initializer: {trade.tradeMaker}</Row>
+                    {isTradeMakerDetails(trade.tradeMakerDetails) && <Row><b>Trade Intiializer: {trade.tradeMakerDetails.userData[0].username}</b></Row>}
                     <Row>Their Cards:</Row>
                     <Row>
                         {trade.tradeMakerCardsDetails.map((card, index) => (
