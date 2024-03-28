@@ -33,7 +33,36 @@ export default function Tutorial(){
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
                     <Accordion.Header><h1>Making a Trade</h1></Accordion.Header>
-                    <Accordion.Body>.....</Accordion.Body>
+                    <Accordion.Body>
+                        <h2>Initializing a Trade</h2>
+                        <p>
+                            In order to initalize a trade, you need to find a trade partner. There are to ways to do this. There is a search bar on the home
+                            page under the titles "Want to Make a Trade?" That search has to modes. The first mode is to search for a user. That mode is
+                            good for if you know the person you want to make a trade with or started trade discussions outside of the app. The other mode
+                            is to search by card. This mode is better for if you want a specific card but don't have a trade partner in mind. Regardless,
+                            once you enter your search query, a list of names show up, and you can pick your trade partner from there.
+                        </p>
+                        <p>
+                            Once you added a trade partner, you need to pick the cards to trade. Check off each person's cards that you propose be in the trade.
+                            Our application provides a running total of prices to help keep track of trade fairness. Once you are happy with the cards selected,
+                            click on other the trade by mail or trade in person boxes, add a message, and click on the submit trade box. If you want to check that
+                            the trade submitted, you can look Outgoing Offers section of the Trades page. Additionally, you can rescind the offer by clicking the
+                            delete button after it was sent.
+                        </p>
+                        <h2>Receiving a Trade Offer</h2>
+                        <p>
+                            In order to check if you've received an offer, check Incoming Trades section of the Trades page. If you see a trade offer, make sure
+                            to look over it. If you like the offer, press accept. If not, press delete and the offer will be declined. If you pressed accept, the
+                            initializer will be notified and can begin the process of trading.
+                        </p>
+                        <h2>Doing the Trade</h2>
+                        <p>
+                            How you trade the cards is entirely up to you and the person you trade with. But, you do have a way to confirm on the app that the
+                            trade has been completed and verify you got the cards. All trades that have been accepted but not completed can be found under the
+                            Confirmed Trades tab in the Trades page. Once you get your new cards, mark that the trade has been completed. Once both parties have
+                            done so, both inventories will be updated appropriately.
+                        </p>
+                    </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
         </div>
