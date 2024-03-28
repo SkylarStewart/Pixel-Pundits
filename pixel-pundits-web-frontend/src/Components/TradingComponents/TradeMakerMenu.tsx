@@ -5,6 +5,8 @@ import { UserContext } from '../../contexts/user.context';
 import { getUserFromId } from '../SocialDatabaseControl';
 import { getInventoryFromId, getFullInventory } from '../CardDatabaseControl';
 import { CardObj } from '../../TypeSheet';
+import { useNavigate } from 'react-router-dom';
+import { addUserOfferTrade } from '../TradeDatabaseControl';
 
 //userData interface
 interface UserData {
@@ -14,68 +16,90 @@ interface UserData {
 
 
 //makes a trade. 
-export default function TradeMakerMenu(userId2: string) {
+export default function TradeMakerMenu(userId: any) {
 
-    const userId = '66037d91d443583424b57fee';
     const { user } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    //state control for loading in all appropriate trade data
     const [otherUserData, setOtherUserData] = useState<UserData | null>(null);
     const [myData, setMyData] = useState<UserData | null>(null);
+
+    //state control for keeping track of the price
     const [myPrice, setMyPrice] = useState(0.0);
     const [otherUserPrice, setOtherUserPrice] = useState(0.0);
+
+    //state control for keeping track of which cards are selected
     const [selectedMyCards, setSelectedMyCards] = useState<{ [key: string]: boolean }>({});
     const [selectedOtherCards, setSelectedOtherCards] = useState<{ [key: string]: boolean }>({});
 
 
-    //handles checkbox checking for my (the user's ) cards
-    const handleMyCheckboxChange = (cardId: string, cardPrice: number, isMyCard: boolean) => {
-        const newSelected = { ...selectedMyCards, [cardId]: !selectedMyCards[cardId] };
-        setSelectedMyCards(newSelected);
-
-        // Calculate total price
-        console.log(selectedMyCards);
-    };
-
-    //handles checkbox checking for other user's cards
-    const handleOtherCheckboxChange = (cardId: string, cardPrice: number, isMyCard: boolean) => {
-        const newSelected = { ...selectedOtherCards, [cardId]: !selectedOtherCards[cardId] };
-        setSelectedOtherCards(newSelected);
-
-        console.log(selectedOtherCards);
-    }
-
-    const onBoxCheck = () => {
-        console.log('swag');
-    }
-
-    const onBoxUncheck = () => {
-        console.log('bag');
-    }
-
     //handles trade type selection
     const [tradeType, setTradeType] = useState('');
-
-    const handleChange = (e: any) => {
+    const handleTradeTypeChange = (e: any) => {
         setTradeType(e.target.value);
     };
 
+    //handles taking in user message
+    const [message, setMessage] = useState('');
+    const handleMessageChange = (event: any) => {
+        setMessage(event.target.value);
+        console.log(message);
+    }
+
+
+    //handles checkbox checking for my (the user's ) cards
+    const handleMyCheckboxChange = (cardId: string, cardPrice: number) => {
+        setSelectedMyCards(prev => {
+            const newState = { ...prev, [cardId]: !prev[cardId] };
+
+            // Update total price based on new selection state
+            const newTotalPrice = Object.entries(newState).reduce((acc, [id, isSelected]) => {
+                if (isSelected) {
+                    const card = myData?.inventory.find(card => card._id === id);
+                    return acc + (card?.price || 0);
+                }
+                return acc;
+            }, 0);
+
+            setMyPrice(newTotalPrice);
+            return newState;
+        });
+    };
+
+    //handles checkbox checking for other user's cards
+    const handleOtherCheckboxChange = (cardId: string, cardPrice: number) => {
+        setSelectedOtherCards(prev => {
+            const newState = { ...prev, [cardId]: !prev[cardId] };
+
+            // Update total price based on new selection state
+            const newTotalPrice = Object.entries(newState).reduce((acc, [id, isSelected]) => {
+                if (isSelected) {
+                    const card = otherUserData?.inventory.find(card => card._id === id);
+                    return acc + (card?.price || 0);
+                }
+                return acc;
+            }, 0);
+
+            setOtherUserPrice(newTotalPrice);
+            return newState;
+        });
+
+        console.log(selectedOtherCards);
+    };
 
     // Function to load other user's data and cards
     const loadOtherUserData = async () => {
         try {
-            console.log('user ID being used: ');
-            console.log(userId);
             // Loading other user's inventory and metadata from the database
-            const rawOtherUserInventory = await getInventoryFromId(user, userId); // Assuming getFullInventory expects an object with an id
-            const otherUserMetadata = await getUserFromId(user, userId);
+            const rawOtherUserInventory = await getInventoryFromId(user, userId.userId); // Assuming getFullInventory expects an object with an id
+            const otherUserMetadata = await getUserFromId(user, userId.userId);
 
             // Combining inventory and metadata for other user
             const combinedOtherUserData = {
                 inventory: rawOtherUserInventory.cards, // Assuming the response has a .cards property
                 metadata: otherUserMetadata.userData[0], // Adjust according to actual response structure
             };
-
-            console.log(combinedOtherUserData);
-
             setOtherUserData(combinedOtherUserData);
         } catch (error) {
             console.error('Error loading other user data:', error);
@@ -95,8 +119,6 @@ export default function TradeMakerMenu(userId2: string) {
                 metadata: myMetadata.userData[0], // Adjust according to actual response structure
             };
 
-            console.log(combinedMyData);
-
             setMyData(combinedMyData);
         } catch (error) {
             console.error('Error loading my data:', error);
@@ -107,6 +129,17 @@ export default function TradeMakerMenu(userId2: string) {
         loadMyData();
         loadOtherUserData();
     }, [user]);
+
+    //runs when a trade is completed
+    const submitTrade = async () => {
+
+        //first array
+        const mySelectedCardIds = Object.entries(selectedMyCards).filter(([cardId, isSelected]) => isSelected).map(([cardId]) => cardId);
+        //second array
+        const otherSelectedCardIds = Object.entries(selectedOtherCards).filter(([cardId, isSelected]) => isSelected).map(([cardId]) => cardId);
+        await addUserOfferTrade(user, userId.userId, mySelectedCardIds, otherSelectedCardIds, message, tradeType);
+        navigate('/completedtrade');
+    }
 
     return (
         <Container style={{ paddingTop: '30px' }}>
@@ -122,7 +155,7 @@ export default function TradeMakerMenu(userId2: string) {
                                     <Form.Check
                                         type="checkbox"
                                         label={`${card.name} - $${card.price}`}
-                                        onChange={() => handleMyCheckboxChange(card.id, card.price, true)}
+                                        onChange={() => handleMyCheckboxChange(card._id, card.price)}
                                     />
                                 </Form.Group>
                             </Col>
@@ -130,8 +163,8 @@ export default function TradeMakerMenu(userId2: string) {
                     </Row>
                 </Col>
             </Row>
-            <h4>5 Cards Selected</h4>
-            <h4>Total Value: $5.33</h4>
+            <h4>{Object.keys(selectedMyCards).filter(key => selectedMyCards[key]).length} Cards Selected</h4>
+            <h4>Total Value: ${myPrice.toFixed(2)}</h4>
             <Row className="mb-4" style={{ paddingTop: "30px" }}>
                 <Col>
                     <h2>{otherUserData?.metadata?.username}{"'"}s Inventory</h2>
@@ -143,7 +176,7 @@ export default function TradeMakerMenu(userId2: string) {
                                     <Form.Check
                                         type="checkbox"
                                         label={`${card.name} - $${card.price}`}
-                                        onChange={() => handleOtherCheckboxChange(card.id, card.price, false)}
+                                        onChange={() => handleOtherCheckboxChange(card._id, card.price)}
                                     />
                                 </Form.Group>
                             </Col>
@@ -151,8 +184,8 @@ export default function TradeMakerMenu(userId2: string) {
                     </Row>
                 </Col>
             </Row>
-            <h4>3 Cards Selected</h4>
-            <h4>Total Value: $4.79</h4>
+            <h4>{Object.keys(selectedOtherCards).filter(key => selectedOtherCards[key]).length} Cards Selected</h4>
+            <h4>Total Value: ${otherUserPrice.toFixed(2)}</h4>
             <Container style={{ paddingTop: '30px' }}>
                 <Form>
                     <Form.Group style={{ marginLeft: '-10px' }}>
@@ -163,7 +196,7 @@ export default function TradeMakerMenu(userId2: string) {
                             name="tradeType"
                             value="in-person"
                             checked={tradeType === 'in-person'}
-                            onChange={handleChange}
+                            onChange={handleTradeTypeChange}
                         />
                         <Form.Check
                             type="radio"
@@ -171,16 +204,16 @@ export default function TradeMakerMenu(userId2: string) {
                             name="tradeType"
                             value="mail"
                             checked={tradeType === 'mail'}
-                            onChange={handleChange}
+                            onChange={handleTradeTypeChange}
                         />
                         <Container style={{ marginTop: '30px' }}>
                         </Container>
                         <h4>Add Instructions/Message</h4>
-                        <Form.Control as="textarea" placeholder="Message here..." rows={3}></Form.Control>
+                        <Form.Control as="textarea" placeholder="Message here..." rows={3} onChange={handleMessageChange}></Form.Control>
                     </Form.Group>
                 </Form>
             </Container>
-            <Button style={{marginTop: '30px', marginBottom: '30px'}}>
+            <Button style={{ marginTop: '30px', marginBottom: '30px' }} onClick={submitTrade}>
                 Submit Trade
             </Button>
         </Container>

@@ -7,7 +7,6 @@ import { GRAPHQL_ENDPOINT } from '../realm/constants';
 //retrieves a user's ID based off of their username
 //will retrieve multiple users if required
 export async function getUserFromUsername(user: any, usernameInput: string): Promise<any> {
-    console.log("this is a test");
 
     const getUserFromUsernameQuery = gql`
     query getUserDatum($username: String!) {
@@ -38,7 +37,6 @@ export async function getUserFromUsername(user: any, usernameInput: string): Pro
 
 //retrieves a user's ID based off of their ID
 export async function getUserFromId(user: any, id: string): Promise<any> {
-    console.log("this is a test");
 
     const getUserFromIdQuery = gql`
     query getUserDatum($id: ObjectId!) {

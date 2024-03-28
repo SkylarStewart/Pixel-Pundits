@@ -8,7 +8,7 @@ import { GRAPHQL_ENDPOINT } from '../realm/constants';
 //Database additions/modifications made by users who are trading between each other.
 
 //adds a trade to the database after a user has made an offer.
-export async function addUserOfferTrade(user: any, otherUserID: any, offeredCardsIDs: any[], otherUserCardsIDs: any[]): Promise<any> {
+export async function addUserOfferTrade(user: any, otherUserID: any, offeredCardsIDs: any[], otherUserCardsIDs: any[], message: string, tradeType: string): Promise<any> {
 
     console.log('added user trade');
 
@@ -25,11 +25,13 @@ export async function addUserOfferTrade(user: any, otherUserID: any, offeredCard
         data: {
             acceptStatus: false,
             tradeAccepter: otherUserID,
+            message: message,
             tradeAccepterCards: otherUserCardsIDs,
             tradeAccepterConfirmation: false,
             tradeMaker: user.id,
             tradeMakerCards: offeredCardsIDs,
             tradeMakerConfirmation: false,
+            tradeType: tradeType
         }
     }
 
@@ -63,12 +65,14 @@ export async function getUserOfferTrades(user: any): Promise<any> {
     }) {
         _id
         acceptStatus
+        message
         tradeAccepter
         tradeAccepterCards
         tradeAccepterConfirmation
         tradeMaker
         tradeMakerCards
         tradeMakerConfirmation
+        tradeType
     }
 }
     `;
@@ -105,12 +109,14 @@ export async function getUserAcceptingTrades(user: any): Promise<any> {
         ]}) {
              _id
              acceptStatus
+             message
              tradeAccepter
              tradeAccepterCards
              tradeAccepterConfirmation
              tradeMaker
              tradeMakerCards
              tradeMakerConfirmation
+             tradeType  
          }
      }
      `;
@@ -140,12 +146,14 @@ export async function getUserTrades(user: any): Promise<any> {
         trades(query: { OR: [{tradeMaker: $userId}, {tradeAccepter: $userId}] }) {
             _id
             acceptStatus
+            message
             tradeAccepter
             tradeAccepterCards
             tradeAccepterConfirmation
             tradeMaker
             tradeMakerCards
             tradeMakerConfirmation
+            tradeType
         }
     }
     `;
@@ -180,12 +188,14 @@ export async function getUserCompletedTrades(user: any): Promise<any> {
         }) {
             _id
             acceptStatus
+            message
             tradeAccepter
             tradeAccepterCards
             tradeAccepterConfirmation
             tradeMaker
             tradeMakerCards
             tradeMakerConfirmation
+            tradeType
         }
     }
     `;
