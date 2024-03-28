@@ -12,6 +12,7 @@ import Profile from './pages/Profile.page';
 import NavigationBar from './Components/NavigationBar';
 import Trades from './pages/Trades.page';
 import MakeTrade from './pages/MakeTrade.page';
+import CompletedTrade from './pages/CompletedTrade.page';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Tutorial from './pages/Tutorial.page';
 
@@ -31,8 +32,9 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path = "/profile" element = {<Profile />}></Route>
             <Route exact path = "/trades" element = {<Trades />}></Route>
-            <Route exact path = "/maketrade" element = {<MakeTrade />}></Route>
             <Route exact path = "/tutorial" element = {<Tutorial />}></Route>
+            <Route exact path = "/maketrade/:id" element = {<MakeTrade />}></Route>
+            <Route exact path = "/completedtrade" element = {<CompletedTrade/>}></Route>
           </Route>
         </Routes>
       </UserProvider>

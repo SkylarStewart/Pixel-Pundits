@@ -13,8 +13,8 @@ export default function UserSearch() {
 
 
     const handleTradeNavigate = (data) => {
-        navigate('/maketrade', { state: data });
-        console.log(data);
+        const URLID = data;
+        navigate(`/maketrade/${URLID}`);
 
     }
 
@@ -139,7 +139,7 @@ export default function UserSearch() {
                                 </Col>
                                 {/* Trade Button */}
                                 <Col xs="auto">
-                                    <Button onClick={() => handleTradeNavigate({ id: '66037d91d443583424b57fee' })}>Trade with User</Button>
+                                    <Button onClick={() => handleTradeNavigate(user.user_id)}>Trade with User</Button>
                                 </Col>
                             </Row>
                         </Container>
