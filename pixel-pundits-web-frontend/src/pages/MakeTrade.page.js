@@ -1,16 +1,16 @@
 import React from 'react';
-import {useLocation, useNavigate} from 'react-router-dom'
+import {useLocation, useParams} from 'react-router-dom'
 import TradeMakerMenu from '../Components/TradingComponents/TradeMakerMenu';
+import {Button } from 'react-bootstrap';
 
 export default function MakeTrade() {
 
-    const location = useLocation();
-    const data = location.state || {};
-    console.log(data);
+    let {id} = useParams()
+
 
     return (
         <div>
-            <TradeMakerMenu userId = {data.id}></TradeMakerMenu>
+            <TradeMakerMenu userId = {id}></TradeMakerMenu>
         </div>
     )
 }
