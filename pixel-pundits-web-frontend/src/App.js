@@ -13,6 +13,7 @@ import NavigationBar from './Components/NavigationBar';
 import Trades from './pages/Trades.page';
 import MakeTrade from './pages/MakeTrade.page';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Tutorial from './pages/Tutorial.page';
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
             <Route exact path = "/profile" element = {<Profile />}></Route>
             <Route exact path = "/trades" element = {<Trades />}></Route>
             <Route exact path = "/maketrade" element = {<MakeTrade />}></Route>
-
+            <Route exact path = "/tutorial" element = {<Tutorial />}></Route>
           </Route>
         </Routes>
       </UserProvider>
