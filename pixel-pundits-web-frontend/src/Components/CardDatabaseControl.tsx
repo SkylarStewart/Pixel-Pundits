@@ -61,6 +61,7 @@ export async function addDBCard(user: any, form: CardObj): Promise<any> {
 //Removes a card from the inventory of the current user
 //WIP
 export async function deleteDBCard(user: any, _id: any, deleteHelper: any): Promise<any> {
+
     //GraphQL query to delete a card
     const deleteCardQuery = gql`
     mutation DeleteCard($query: CardQueryInput!) {
@@ -80,6 +81,7 @@ export async function deleteDBCard(user: any, _id: any, deleteHelper: any): Prom
 
     try {
         const resp = await request(GRAPHQL_ENDPOINT, deleteCardQuery, queryVariables, headers);
+        console.log(resp);
         deleteHelper();
     }
     catch (error) {

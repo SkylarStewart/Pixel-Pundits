@@ -24,7 +24,7 @@ export default function Inventory({ cards, helperFunction}) {
                         <Row className="justify-content-center">
                             <Col><CardDisplayRow card={card} /></Col>
                             <Col xs={2} sm={2} md={2} lg={2} xl={2} className="d-flex align-items-center justify-content-center">
-                                <Button onClick={() => deleteDBCard(user, card.cardId, helperFunction)}> Remove Card </Button>
+                                <Button onClick={() => deleteDBCard(user, card._id, helperFunction)}> Remove Card </Button>
                             </Col>
                         </Row>
                         <hr/>

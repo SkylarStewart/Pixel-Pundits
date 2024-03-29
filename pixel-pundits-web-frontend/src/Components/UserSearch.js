@@ -124,7 +124,7 @@ export default function UserSearch() {
                 />
             </div>
             {/*rendering for cards and users*/}
-            <Container style={{marginLeft: '0'}}>
+            <Container style={{ marginLeft: '0' }}>
                 {returnedUsers.map((user, index) => (
                     <div key={index}>
                         <Container>

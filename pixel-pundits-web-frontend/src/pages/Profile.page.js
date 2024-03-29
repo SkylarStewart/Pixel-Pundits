@@ -8,7 +8,7 @@ import { UserContext } from "../contexts/user.context";
 import { Button } from "@mui/material";
 import Inventory from "../Components/Inventory";
 import AddCardToCollection from "../Components/AddCardToCollection";
-import { getFullInventory, addDBCard} from "../Components/CardDatabaseControl";
+import { getFullInventory, addDBCard } from "../Components/CardDatabaseControl";
 import { getUserFromUsername } from "../Components/SocialDatabaseControl";
 import CardDisplayRow from "../Components/CardDisplayRow";
 import { Form, Row, Col, Container } from "react-bootstrap";
@@ -102,9 +102,9 @@ export default function Profile() {
         loadCards();
         console.log('deleted a card....');
     }
-    
+
     //test function to test the username search capability.
-    const testSearch = async() => {
+    const testSearch = async () => {
         const username = "test32";
         const resp = await getUserFromUsername(user, username);
         console.log(resp);
@@ -129,7 +129,7 @@ export default function Profile() {
                 </Form.Group>
                 <Form.Group controlId="cardSet">
                     <Form.Label>Set Code:</Form.Label>
-                     <Col xs={4} sm={4} md={4} lg={4} xl={4}>
+                    <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                         <Form.Control
                             type="text"
                             value={searchCardSet}
@@ -145,14 +145,14 @@ export default function Profile() {
                 (searchArr[0].name) &&
                 searchArr.map((card) => {
                     return <Container key={card.name}>
-                            <Row className="justify-content-center">
-                                <Col><CardDisplayRow card={card} /></Col>
-                                <Col xs={2} sm={2} md={2} lg={2} xl={2} className="d-flex align-items-center justify-content-center">
-                                    <Button onClick={() => addDBCard(user, card)} class="btn btn-primary"> Add Card </Button>
-                                </Col>
-                            </Row>
-                            <hr/>
-                        </Container>
+                        <Row className="justify-content-center">
+                            <Col><CardDisplayRow card={card} /></Col>
+                            <Col xs={2} sm={2} md={2} lg={2} xl={2} className="d-flex align-items-center justify-content-center">
+                                <Button onClick={() => addDBCard(user, card)} class="btn btn-primary"> Add Card </Button>
+                            </Col>
+                        </Row>
+                        <hr />
+                    </Container>
                 })
             }
 
@@ -184,7 +184,7 @@ export default function Profile() {
                 <Inventory cards={inventory} helperFunction={afterDelete} />
             </div>
 
-            <br/>
+            <br />
 
         </>
     );
