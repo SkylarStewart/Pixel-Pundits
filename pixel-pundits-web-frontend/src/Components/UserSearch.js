@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Button, Container, Form, Image } from 'react-bootstrap';
 import { useContext, useState } from 'react';
-import { getUserFromUsername } from './SocialDatabaseControl';
+import { getUserFromUsername, getUsersFromIds } from './SocialDatabaseControl';
 import { getCardsByName } from './CardDatabaseControl';
 import { UserContext } from '../contexts/user.context';
 import { useNavigate } from 'react-router-dom';
@@ -38,41 +38,49 @@ export default function UserSearch() {
 
     //async helper function for getting user metadata query
     const searchUsers = async () => {
-        await getUserFromUsername(user, searchValue)
-            .then(function (users) {
-                return setReturnedUsers(users.userData);
-            })
-            .then(function () {
-                console.log("Found users successfully.");
-                console.log(returnedUsers);
-            })
-            .catch(function (error) {
-                console.error('Error: ', error);
-            })
+        //gets all users
+        try {
+            const userSearchResults = await getUserFromUsername(user, searchValue);
+            setReturnedUsers(userSearchResults.userData);
+        }
+        catch (error) {
+            console.error(error);
+        }
+
 
     }
 
-    const searchCards = async () => {
-        await getCardsByName(user, searchValue)
-            .then(function (cards) {
-                return setReturnedCards(cards.cards);
-            })
-            .then(function () {
-                console.log("Found cards successfully.");
-                console.log(returnedCards);
-            })
-            .catch(function (error) {
-                console.error('Error: ', error)
-            })
-    }
-
-    const onCardSearch = () => {
-        searchCards();
-    };
-
-    const onUserSearch = () => {
+    const onUserSearch = (event) => {
         searchUsers();
-    };
+    }
+
+    const onCardSearch = (event) => {
+        searchCards();
+    }
+
+    //async helper function for getting cards and the card owners, combining them, and returning the results
+    const searchCards = async () => {
+        try {
+            const cardSearchResults = await getCardsByName(user, searchValue);
+            const ownerIds = cardSearchResults.cards.map(card => card.owner); // Extract owner IDs from cards
+            const uniqueOwnerIds = [...new Set(ownerIds)]; // Remove duplicates
+            const usersMetadata = await getUsersFromIds(user, uniqueOwnerIds);
+            const usersMetadataParsed = usersMetadata.userData;
+            // Combine each card with its owner's metadata
+            const combinedData = cardSearchResults.cards.map(card => {
+                const ownerData = usersMetadataParsed.find(user => user.user_id === card.owner);
+                return {
+                    ...card,
+                    ownerData
+                };
+            });
+
+            setReturnedCards(combinedData);
+            console.log(returnedCards);
+        } catch (error) {
+            console.error('Error combining card data with user metadata:', error);
+        }
+    }
 
     //search submission handler
     const handleSubmit = (event) => {
@@ -124,7 +132,7 @@ export default function UserSearch() {
                 />
             </div>
             {/*rendering for cards and users*/}
-            <Container style={{marginLeft: '0'}}>
+            <Container style={{ marginLeft: '0' }}>
                 {returnedUsers.map((user, index) => (
                     <div key={index}>
                         <Container>
@@ -150,6 +158,8 @@ export default function UserSearch() {
                 {returnedCards.map((card, index) => (
                     <Container key={index}>
                         <p>{card.name}</p>
+                        <p>{card.ownerData.username}</p>
+                        <Button onClick={() => handleTradeNavigate(card.ownerData.user_id)}>Trade With Card Owner</Button>
                     </Container>
                 ))}
             </Container>
