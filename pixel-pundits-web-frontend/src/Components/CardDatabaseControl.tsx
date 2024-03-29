@@ -16,7 +16,7 @@ import { GRAPHQL_ENDPOINT } from '../realm/constants';
 
 //Adds a card to the inventory of the current user
 //pass in a JSON form with 
-export async function addDBCard(user: any, form: CardObj): Promise<any> {
+export async function addDBCard(user: any, form: CardObj, addHelper: any): Promise<any> {
     //graphql query to add a new card
     const addCardQuery = gql`
     mutation AddCard($data: CardInsertInput!) {
@@ -46,6 +46,7 @@ export async function addDBCard(user: any, form: CardObj): Promise<any> {
     //acutal processing
     try {
         await request(GRAPHQL_ENDPOINT, addCardQuery, queryVariables, headers);
+        addHelper();
     }
 
     catch (error) {

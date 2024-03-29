@@ -8,7 +8,7 @@ import { UserContext } from "../contexts/user.context";
 import { Button } from "@mui/material";
 import Inventory from "../Components/Inventory";
 import AddCardToCollection from "../Components/AddCardToCollection";
-import { getFullInventory, addDBCard} from "../Components/CardDatabaseControl";
+import { getFullInventory, addDBCard } from "../Components/CardDatabaseControl";
 import { getUserFromUsername } from "../Components/SocialDatabaseControl";
 import CardDisplayRow from "../Components/CardDisplayRow";
 import { Form, Row, Col, Container } from "react-bootstrap";
@@ -98,17 +98,10 @@ export default function Profile() {
     }
 
     //help function passed back to the inventory to help with deletion
-    const afterDelete = () => {
+    const helperFunctionLoad = () => {
         loadCards();
-        console.log('deleted a card....');
     }
-    
-    //test function to test the username search capability.
-    const testSearch = async() => {
-        const username = "test32";
-        const resp = await getUserFromUsername(user, username);
-        console.log(resp);
-    }
+
 
     const elementsPerRow = 4;
 
@@ -131,7 +124,7 @@ export default function Profile() {
                 </Form.Group>
                 <Form.Group controlId="cardSet">
                     <Form.Label>Set Code:</Form.Label>
-                     <Col xs={4} sm={4} md={4} lg={4} xl={4}>
+                    <Col xs={4} sm={4} md={4} lg={4} xl={4}>
                         <Form.Control
                             type="text"
                             value={searchCardSet}
@@ -146,47 +139,24 @@ export default function Profile() {
             <Container>
                 {searchArr[0].name && searchArr.map((card, index) => (
                     index % elementsPerRow === 0 && (
-                    <Row key={`row-${index}`} className="justify-content-center">
-                        {searchArr.slice(index, index + elementsPerRow).map((card, subIndex) => (
-                        <Col key={`col-${subIndex}`}>
-                            <CardDisplayRow card={card} />
-                            <Button onClick={() => addDBCard(user, card)} className="btn btn-primary">Add Card</Button>
-                        </Col>
-                        ))}
-                    </Row>
+                        <Row key={`row-${index}`} className="justify-content-center">
+                            {searchArr.slice(index, index + elementsPerRow).map((card, subIndex) => (
+                                <Col key={`col-${subIndex}`}>
+                                    <CardDisplayRow card={card} />
+                                    <Button onClick={() => addDBCard(user, card, helperFunctionLoad)} className="btn btn-primary">Add Card</Button>
+                                </Col>
+                            ))}
+                        </Row>
                     )
                 ))}
             </Container>
 
-
-            {/* {<Button
-                variant="contained"
-                color="primary"
-                sx={{ marginLeft: '10px' }}
-                onClick={onSubmit}>
-                ADD TEST CARD
-            </Button>} */}
-
-            {/* <Button onClick={printArr}>Test Print</Button>
-            <Button onClick={testSearch}>Test Query</Button> */}
-
-            {/* {
-                inventory.forEach((c) => {
-                    //console.log(c);
-                    <div style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
-                        <Row>
-                            <CardDisplayRow card={c} />
-                        </Row>
-                    </div>
-                })
-            } */}
-
             <div>
                 <h1>Inventory</h1>
-                <Inventory cards={inventory} helperFunction={afterDelete} />
+                <Inventory cards={inventory} helperFunction={helperFunctionLoad} />
             </div>
 
-            <br/>
+            <br />
 
         </>
     );
