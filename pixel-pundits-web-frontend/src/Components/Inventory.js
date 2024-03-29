@@ -28,7 +28,7 @@ export default function Inventory({ cards, helperFunction}) {
                     <Col key={`col-${subIndex}`}>
                         <div key={card.cardId}>
                         <CardDisplayRow card={card} />
-                        <Button onClick={() => deleteDBCard(user, card.cardId, helperFunction)}>Remove Card</Button>
+                        <Button onClick={() => deleteDBCard(user, card._id, helperFunction)}>Remove Card</Button>
                         </div>
                     </Col>
                     ))}
