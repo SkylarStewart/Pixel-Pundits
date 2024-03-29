@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, Figure } from "react-bootstrap";
 import { CardObj } from "../TypeSheet";
 
 const CardDisplayRow = ({ card }: { card: CardObj }) => {
@@ -10,7 +10,16 @@ const CardDisplayRow = ({ card }: { card: CardObj }) => {
 
     return (
         <Container>
-            <Row>
+            <Figure>
+                <Figure.Image src={card.imageURL} alt={card.name}/>
+                <Figure.Caption>
+                    <Row>Name: {card.name}</Row>
+                    <Row>Set: {card.set}</Row>
+                    <Row>Price: ${card.price}</Row>
+                    <Row>Printing: {card.print}</Row>
+                </Figure.Caption>
+            </Figure>
+            {/* <Row>
                 <Col>
                     <img src={card.imageURL} alt={card.name} />
                 </Col>
@@ -22,7 +31,7 @@ const CardDisplayRow = ({ card }: { card: CardObj }) => {
                     <Row>Price: ${card.price}</Row>
                     <Row>Printing: {card.print}</Row>
                 </Col>
-            </Row>
+            </Row> */}
         </Container>
     );
 }
