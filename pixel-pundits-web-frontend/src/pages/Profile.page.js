@@ -110,6 +110,8 @@ export default function Profile() {
         console.log(resp);
     }
 
+    const elementsPerRow = 4;
+
     return (
         <>
             <h1>User Profile</h1>
@@ -141,20 +143,20 @@ export default function Profile() {
 
             <Button onClick={searchAPI} class="btn btn-primary"> Search </Button>
 
-            {
-                (searchArr[0].name) &&
-                searchArr.map((card) => {
-                    return <Container key={card.name}>
-                            <Row className="justify-content-center">
-                                <Col><CardDisplayRow card={card} /></Col>
-                                <Col xs={2} sm={2} md={2} lg={2} xl={2} className="d-flex align-items-center justify-content-center">
-                                    <Button onClick={() => addDBCard(user, card)} class="btn btn-primary"> Add Card </Button>
-                                </Col>
-                            </Row>
-                            <hr/>
-                        </Container>
-                })
-            }
+            <Container>
+                {searchArr[0].name && searchArr.map((card, index) => (
+                    index % elementsPerRow === 0 && (
+                    <Row key={`row-${index}`} className="justify-content-center">
+                        {searchArr.slice(index, index + elementsPerRow).map((card, subIndex) => (
+                        <Col key={`col-${subIndex}`}>
+                            <CardDisplayRow card={card} />
+                            <Button onClick={() => addDBCard(user, card)} className="btn btn-primary">Add Card</Button>
+                        </Col>
+                        ))}
+                    </Row>
+                    )
+                ))}
+            </Container>
 
 
             {/* {<Button
@@ -168,7 +170,7 @@ export default function Profile() {
             {/* <Button onClick={printArr}>Test Print</Button>
             <Button onClick={testSearch}>Test Query</Button> */}
 
-            {
+            {/* {
                 inventory.forEach((c) => {
                     //console.log(c);
                     <div style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
@@ -177,7 +179,7 @@ export default function Profile() {
                         </Row>
                     </div>
                 })
-            }
+            } */}
 
             <div>
                 <h1>Inventory</h1>

@@ -16,20 +16,24 @@ export default function Inventory({ cards, helperFunction}) {
         //paddingBottom: '1rem',
     };
 
+    const elementsPerRow = 4;
+
     return (
         <Container>
-            {cards.map((card, index) => ( // Use .map instead of .forEach
-                <div key={card.cardId} style={style}>
-                    <Container key={index}> {/* Add a unique key prop here */}
-                        <Row className="justify-content-center">
-                            <Col><CardDisplayRow card={card} /></Col>
-                            <Col xs={2} sm={2} md={2} lg={2} xl={2} className="d-flex align-items-center justify-content-center">
-                                <Button onClick={() => deleteDBCard(user, card.cardId, helperFunction)}> Remove Card </Button>
-                            </Col>
-                        </Row>
-                        <hr/>
-                    </Container>
-                </div>
+            {cards.map((card, index) => (
+                // Use modulus operator to determine when to start a new row
+                index % elementsPerRow === 0 && (
+                <Row key={`row-${index}`} className="justify-content-center">
+                    {cards.slice(index, index + elementsPerRow).map((card, subIndex) => (
+                    <Col key={`col-${subIndex}`}>
+                        <div key={card.cardId}>
+                        <CardDisplayRow card={card} />
+                        <Button onClick={() => deleteDBCard(user, card.cardId, helperFunction)}>Remove Card</Button>
+                        </div>
+                    </Col>
+                    ))}
+                </Row>
+                )
             ))}
         </Container>
     )
