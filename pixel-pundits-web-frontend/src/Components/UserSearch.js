@@ -155,13 +155,25 @@ export default function UserSearch() {
                 ))}
             </Container>
             <Container>
-                {returnedCards.map((card, index) => (
+                {/* {returnedCards.map((card, index) => (
                     <Container key={index}>
                         <p>{card.name}</p>
                         <p>{card.ownerData.username}</p>
                         <Button onClick={() => handleTradeNavigate(card.ownerData.user_id)}>Trade With Card Owner</Button>
+                        
                     </Container>
-                ))}
+                ))} */}
+
+                <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
+                    {returnedCards.map((card, index) => (
+                        <Col key={index}>
+                            <Image src={card.imageURL} style={{ paddingBottom: '010px' }}></Image>
+                            <p>{card.name}</p>
+                            <p>Owner: {card.ownerData.username}</p>
+                            <Button onClick={() => handleTradeNavigate(card.ownerData.user_id)}>Trade With Owner</Button>
+                        </Col>
+                    ))}
+                </Row>
             </Container>
 
         </>
