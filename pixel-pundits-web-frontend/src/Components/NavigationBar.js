@@ -12,6 +12,7 @@ const NavigationBar = () => {
           <Nav.Link as={Link} to="../profile">Profile</Nav.Link>
           <Nav.Link as={Link} to="../trades">Trades</Nav.Link>
           <Nav.Link as={Link} to="../tutorial">Tutorial</Nav.Link>
+          <Nav.Link as={Link} to="https://forms.gle/EbBAXG7thE7A8ubQ6" target="_blank" rel="noopener noreferrer">Debug and Feedback</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
