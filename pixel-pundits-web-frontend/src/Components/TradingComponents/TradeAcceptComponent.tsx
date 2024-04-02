@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, Row, Col, Container } from 'react-bootstrap';
+import { Button, Row, Col, Container, Image } from 'react-bootstrap';
 import { Trade, CardObj, ParsedTrade } from '../../TypeSheet';
 import { UserContext } from '../../contexts/user.context';
 import { updateAcceptStatus, deleteTrade, confirmTradeAsAccepter } from '../TradeDatabaseControl';
@@ -9,10 +9,10 @@ import CardDisplayRow from '../CardDisplayRow';
 export default function TradeAcceptComponent({ trade }: { trade: ParsedTrade }) {
     const { user } = useContext(UserContext);
 
-    function convertDBtoCardOBJ(card: Promise<any>){
+    function convertDBtoCardOBJ(card: Promise<any>) {
         card.then((result) => {
             console.log(result.name); // Access the name property once the promise is resolved
-            return{
+            return {
                 name: result.name,
                 set: result.set,
                 price: result.price,
@@ -52,23 +52,26 @@ export default function TradeAcceptComponent({ trade }: { trade: ParsedTrade }) 
                 <Col>
                     {isTradeMakerDetails(trade.tradeMakerDetails) && <Row><b>Trade Intiializer: {trade.tradeMakerDetails.userData[0].username}</b></Row>}
                     <Row>Their Cards:</Row>
-                    <Row>
+                    <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
                         {trade.tradeMakerCardsDetails.map((card, index) => (
-                            <Container key={index}>
-                                <CardDisplayRow card={card}/>
-                                <hr/>
-                            </Container>
+                            <Col key={index}>
+                                <Image src={card.imageURL} style={{ paddingBottom: '010px' }}></Image>
+                                <p>{card.name}</p>
+                                <p>Owner: {card.ownerData.username}</p>
+                            </Col>
                         ))}
                     </Row>
                     <Row>Your Cards:</Row>
-                    <Row>
+                    <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
                         {trade.tradeAccepterCardsDetails.map((card, index) => (
-                            <Container key={index}>
-                                <CardDisplayRow card={card}/>
-                                <hr/>
-                            </Container>
+                            <Col key={index}>
+                                <Image src={card.imageURL} style={{ paddingBottom: '010px' }}></Image>
+                                <p>{card.name}</p>
+                                <p>Owner: {card.ownerData.username}</p>
+                            </Col>
                         ))}
                     </Row>
+                    <p>Message: {trade.message}</p>
                     <Row>Accept Trade?</Row>
                     {trade.acceptStatus ? (
                         <Button onClick={() => confirmTradeAsAccepter(user, trade._id)}>Confirm Trade</Button>

@@ -159,7 +159,7 @@ export default function Trades() {
     return (
 
         <>
-            <Container>
+            <Container style= {{paddingTop: "20px"}}>
                 <h1>Outgoing Offers</h1>
                 {offeredTrades.map((trade, index) => (
                     <Container key={index}>
@@ -168,7 +168,7 @@ export default function Trades() {
 
                 ))}
             </Container>
-            <Container>
+            <Container style= {{paddingTop: "20px"}}>
                 <h1>Incoming Offers</h1>
                 {acceptTrades.map((trade, index) => (
                     <Container key={index}>
@@ -177,7 +177,7 @@ export default function Trades() {
 
                 ))}
             </Container>
-            <Container>
+            <Container style= {{paddingTop: "20px"}}>
                 <h1>Completed Trades</h1>
                 {completedTrades.map((trade, index) => (
                     <Container key={index}>
