@@ -165,7 +165,7 @@ export async function getFullInventory(user: any): Promise<any> {
 
 //adds a user's metadata to the metadata collection after signing up
 //ONLY USE WHEN ABSOLUTELY NECESSARY. HAS POTENTIAL TO BE INSECURE
-export async function addUserMetadata(user: any, username: string, privateStatus: boolean): Promise<any> {
+export async function addUserMetadata(user: any, username: string, privateStatus: boolean, email: string): Promise<any> {
 
     const id = user.id;
     //graphql query to add a new card
@@ -179,6 +179,7 @@ export async function addUserMetadata(user: any, username: string, privateStatus
 
     const queryVariables = {
         data: {
+            email: email,
             private: privateStatus,
             username: username,
             user_id: id,
