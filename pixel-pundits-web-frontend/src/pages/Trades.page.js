@@ -186,11 +186,6 @@ export default function Trades() {
 
                 ))}
             </Container>
-            <Container>
-                <Button onClick={() => addUserOfferTrade(user, '6600918d65231ee277e91c91', ['6600911b9dd269ef0a775d4b', '66008ca92018ef9a6ebc01a4'], ['660091b8c78a8e8390699a5f', '660091aac78a8e839066b987'], "test message", "mail")}>
-                    Add Test Trade
-                </Button>
-            </Container>
 
         </>
     );

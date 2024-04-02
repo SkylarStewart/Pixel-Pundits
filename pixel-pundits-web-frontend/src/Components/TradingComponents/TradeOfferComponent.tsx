@@ -50,8 +50,8 @@ export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
         <Container>
             <Row>
                 <Col>
-                    {isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><b>Trade Recipient: {trade.tradeAccepterDetails.userData[0].username}</b></Row>}
-                    <Row>Cards Being Offered: </Row>
+                    {isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><h4>Trade Recipient: {trade.tradeAccepterDetails.userData[0].username}</h4></Row>}
+                    <Row><h4>Their Cards: </h4></Row>
                     <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
                         {trade.tradeMakerCardsDetails.map((card, index) => (
                             <Col key={index}>
@@ -60,7 +60,7 @@ export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
                             </Col>
                         ))}
                     </Row>
-                    <Row>Cards Being Asked for: </Row>
+                    <Row><h4>Your Cards: </h4></Row>
                     <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
                         {trade.tradeAccepterCardsDetails.map((card, index) => (
                             <Col key={index}>
@@ -69,7 +69,7 @@ export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
                             </Col>
                         ))}
                     </Row>
-                    <p>Message: {trade.message}</p>
+                    <Row style={{ marginTop: '30px' }}><h4>Message: {trade.message}</h4></Row>
                     {trade.acceptStatus ? (
                         <Button onClick={() => confirmTradeAsMaker(user, trade._id)}>Confirm Trade</Button>
                     ) : (
