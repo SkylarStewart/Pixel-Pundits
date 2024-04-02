@@ -50,7 +50,7 @@ export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
         <Container>
             <Row>
                 <Col>
-                    {isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><b>Trade Recipient: {trade.tradeAccepterDetails.userData[0].username}</b></Row>}
+                    {isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><h4>Trade Recipient: {trade.tradeAccepterDetails.userData[0].username}</h4></Row>}
                     <Row>Cards Being Offered: </Row>
                     <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
                         {trade.tradeMakerCardsDetails.map((card, index) => (

@@ -19,7 +19,7 @@ export default function Inventory({ cards, helperFunction }) {
     const elementsPerRow = 4;
 
     return (
-        <Container>
+        <Container style = {{marginTop: "20px"}}>
             {cards.map((card, index) => (
                 // Use modulus operator to determine when to start a new row
                 index % elementsPerRow === 0 && (

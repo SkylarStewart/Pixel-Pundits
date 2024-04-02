@@ -33,43 +33,28 @@ export default function Profile() {
     const [searchCardName, setSearchCardName] = useState("");
     const [searchCardSet, setSearchCardSet] = useState("");
     const [searchArr, setSearchArr] = useState([{}]);
+    const [value, setValue] = useState("");
 
     //async helper function
     const loadCards = async () => {
-        await getFullInventory(user)
-            .then(function (inven) {
-                return setInventory(inven.cards);
-            })
-            .then(function () {
-                console.log("Inventory set successfully.");
-                // Any further actions after setting the inventory
-            })
-            .catch(function (error) {
-                console.error('Error:', error);
-            });
+        try {
+            const inven = await getFullInventory(user);
+            setInventory(inven.cards);
+    
+            const totalPrice = inven.cards.reduce((acc, card) => acc + card.price, 0).toFixed(2);
+
+            // Set the total price in state
+            setValue(totalPrice);
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     useEffect(() => {
         loadCards();
     }, [user])
 
-    useEffect(() => {
-        console.log(searchArr);
-    }, [searchArr])
-
-    //runs when we add the example card to our database
-    // const onSubmit = async (event) => {
-    //     event.preventDefault();
-    //     //addDBCard(user, card)
-    // }
-
-    function printArr() {
-        console.log(inventory);
-    }
-
     const handleSearchCardNameChange = (event) => {
-        console.log(event);
-        console.log(searchCardName);
         setSearchCardName(event.target.value);
     };
 
@@ -85,9 +70,6 @@ export default function Profile() {
         async function fetchData() {
             try {
                 const result = await SearchCardScryfall(searchCardName, searchCardSet, searchArr);
-                console.log(result);
-                console.log(JSON.stringify(result));
-                console.log(typeof result);
                 setSearchArr(result);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -106,7 +88,7 @@ export default function Profile() {
     const elementsPerRow = 4;
 
     return (
-        <Container style={{ padddingTop: '20px' }}>
+        <Container style={{ paddingTop: '20px' }}>
             <h1>User Profile</h1>
             <Form>
                 <Form.Group controlId="cardName">
@@ -131,9 +113,9 @@ export default function Profile() {
                 </Form.Group>
             </Form>
 
-            <Button onClick={searchAPI} class="btn btn-primary"> Search </Button>
+            <Button onClick={searchAPI} class="btn btn-primary" style={{ marginTop: '20px' }}> Search </Button>
 
-            <Container>
+            <Container style={{ marginTop: "20px" }}>
                 {searchArr[0].name && searchArr.map((card, index) => (
                     index % elementsPerRow === 0 && (
                         <Row key={`row-${index}`} className="justify-content-center">
@@ -150,6 +132,8 @@ export default function Profile() {
 
             <div>
                 <h1>Inventory</h1>
+                <h4>Card Count: {inventory.length}</h4>
+                <h4>Estimated Inventory Value: {value} </h4>
                 <Inventory cards={inventory} helperFunction={helperFunctionLoad} />
             </div>
 
