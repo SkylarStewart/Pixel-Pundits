@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Row, Col, Container } from 'react-bootstrap'
-import { Trade, CardObj, ParsedTrade } from '../../TypeSheet';
+import { Button, Row, Col, Container, Image } from 'react-bootstrap'
+import { Trade, CardObj, ParsedTrade, } from '../../TypeSheet';
 import CardDisplayRow from '../CardDisplayRow';
 import { UserContext } from '../../contexts/user.context';
 import { useContext } from 'react';
@@ -58,26 +58,29 @@ export default function TradeConfirmComponent({ trade }: { trade: ParsedTrade })
                             (isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><b>Trade Partner: {trade.tradeAccepterDetails.userData[0].username}</b></Row>) :
                             (isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><b>Trade Partner: {trade.tradeAccepterDetails.userData[0].username}</b></Row>)
                     }
-                    <Row>Their Cards:  </Row>
-                    <Row>
+                    <Row><h4>Their Cards: </h4></Row>
+                    <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
                         {trade.tradeMakerCardsDetails.map((card, index) => (
-                            <Container key={index}>
-                                <CardDisplayRow card={card} />
-                                <hr />
-                            </Container>
+                            <Col key={index}>
+                                <Image src={card.imageURL} style={{ paddingBottom: '010px' }}></Image>
+                                <p>{card.name}</p>
+                                <p>Price: {card.price}</p>
+                            </Col>
                         ))}
                     </Row>
-                    <Row>Your Cards: </Row>
-                    <Row>
+                    <Row><h4>Your Cards: </h4></Row>
+                    <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
                         {trade.tradeAccepterCardsDetails.map((card, index) => (
-                            <Container key={index}>
-                                <CardDisplayRow card={card} />
-                                <hr />
-                            </Container>
+                            <Col key={index}>
+                                <Image src={card.imageURL} style={{ paddingBottom: '010px' }}></Image>
+                                <p>{card.name}</p>
+                                <p>Price: {card.price}</p>
+                            </Col>
                         ))}
                     </Row>
-                    <p>Message: {trade.message}</p>
-                    <Row>Trade Confirmed Complete</Row>
+                    <Row style={{ marginTop: '30px' }}><h4>Message: {trade.message}</h4></Row>
+                    <Row style={{ marginTop: '30px', marginBottom: '30px' }}><h4>Trade Confirmed Complete</h4></Row>
+
                 </Col>
             </Row>
         </Container>

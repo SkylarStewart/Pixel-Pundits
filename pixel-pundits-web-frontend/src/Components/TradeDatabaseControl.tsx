@@ -58,7 +58,7 @@ export async function getUserOfferTrades(user: any): Promise<any> {
     query getUserOfferTrades($tradeMakerId: ObjectId!) {
     trades(query: {
         tradeMaker: $tradeMakerId,
-        AND: [
+        OR: [
             {tradeMakerConfirmation: false},
             {tradeAccepterConfirmation: false}
         ]
@@ -103,7 +103,7 @@ export async function getUserAcceptingTrades(user: any): Promise<any> {
     const getUserAcceptingTradesQuery = gql`
      query getUserAcceptingTrades($tradeAccepterId: ObjectId!) {
          trades(query: {tradeAccepter: $tradeAccepterId
-            AND: [
+            OR: [
             {tradeMakerConfirmation: false},
             {tradeAccepterConfirmation: false}
         ]}) {

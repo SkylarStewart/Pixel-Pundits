@@ -89,7 +89,7 @@ export default function Profile() {
 
     return (
         <Container style={{ paddingTop: '20px' }}>
-            <h1>User Profile</h1>
+            <h1>User Profile - {user._profile.data.email}</h1>
             <Form>
                 <Form.Group controlId="cardName">
                     <Form.Label>Card Name:</Form.Label>

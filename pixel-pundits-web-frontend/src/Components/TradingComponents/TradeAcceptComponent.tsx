@@ -50,34 +50,38 @@ export default function TradeAcceptComponent({ trade }: { trade: ParsedTrade }) 
         <Container>
             <Row>
                 <Col>
-                    {isTradeMakerDetails(trade.tradeMakerDetails) && <Row><b>Trade Intiializer: {trade.tradeMakerDetails.userData[0].username}</b></Row>}
-                    <Row>Their Cards:</Row>
+                    {isTradeMakerDetails(trade.tradeMakerDetails) && <Row>Incoming Trade from: {trade.tradeMakerDetails.userData[0].username}</Row>}
+                    <Row><h4>Their Cards:</h4></Row>
                     <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
                         {trade.tradeMakerCardsDetails.map((card, index) => (
                             <Col key={index}>
                                 <Image src={card.imageURL} style={{ paddingBottom: '010px' }}></Image>
                                 <p>{card.name}</p>
-                                <p>Owner: {card.ownerData.username}</p>
+                                <p>Price: {card.price}</p>
                             </Col>
                         ))}
                     </Row>
-                    <Row>Your Cards:</Row>
+                    <Row><h4>Your Cards:</h4></Row>
                     <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
                         {trade.tradeAccepterCardsDetails.map((card, index) => (
                             <Col key={index}>
                                 <Image src={card.imageURL} style={{ paddingBottom: '010px' }}></Image>
                                 <p>{card.name}</p>
-                                <p>Owner: {card.ownerData.username}</p>
+                                <p>Price: {card.price}</p>
                             </Col>
                         ))}
                     </Row>
-                    <p>Message: {trade.message}</p>
-                    <Row>Accept Trade?</Row>
+                    <Row style={{ marginTop: '30px' }}><h4>Message: {trade.message}</h4></Row>
                     {trade.acceptStatus ? (
-                        <Button onClick={() => confirmTradeAsAccepter(user, trade._id)}>Confirm Trade</Button>
+                        <>
+                            <Row style={{ marginTop: '30px', marginBottom: '30px' }}><h4>Trade Accepted, Confirm Trade has Occured:</h4></Row>
+                            <Button onClick={() => confirmTradeAsAccepter(user, trade._id)}>Confirm Trade</Button>
+
+                        </>
                     ) : (
                         <>
-                            <Button onClick={() => updateAcceptStatus(user, trade._id)}>Accept Trade</Button>
+                            <Row style={{ marginTop: '30px', marginBottom: '30px' }}><h4>Accept or Decline Trade:</h4></Row>
+                            <Button onClick={() => updateAcceptStatus(user, trade._id)} style={{ marginRight: "10px" }}>Accept Trade</Button>
                             <Button onClick={() => deleteTrade(user, trade._id)}>Decline Trade</Button>
                         </>
                     )}
