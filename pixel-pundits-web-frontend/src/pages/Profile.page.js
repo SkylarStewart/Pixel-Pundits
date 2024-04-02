@@ -106,11 +106,8 @@ export default function Profile() {
     const elementsPerRow = 4;
 
     return (
-        <>
+        <Container style={{ padddingTop: '20px' }}>
             <h1>User Profile</h1>
-            <p>User Email: {user._profile.data.email}</p>
-            {user._profile.data.username && <p>Username: {user._profile.data.username}</p>} {/* WIP, need variable name??*/}
-
             <Form>
                 <Form.Group controlId="cardName">
                     <Form.Label>Card Name:</Form.Label>
@@ -158,6 +155,6 @@ export default function Profile() {
 
             <br />
 
-        </>
+        </Container>
     );
 }

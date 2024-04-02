@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import { useContext, React } from 'react';
 import UserSearch from "../Components/UserSearch";
 import TradeMakerMenu from "../Components/TradingComponents/TradeMakerMenu";
+import { Container, Row, Col } from 'react-bootstrap';
 
 
 export default function Home() {
@@ -38,11 +39,10 @@ export default function Home() {
 
 
     return (
-        <>
+        <Container className="d-flex flex-column align-items-center" style={{ minHeight: "100vh", marginTop: "40px" }}>
             <h1>Pixel Pundits: The App</h1>
-            <h2>Want to make a trade?</h2>
             <UserSearch />
-            <Button
+            {/* <Button
                 variant="contained"
                 color="primary"
                 sx={{ marginLeft: '10px' }}
@@ -55,7 +55,7 @@ export default function Home() {
                 sx={{ marginLeft: '10px' }}
                 onClick={onProfileView}>
                 View Profile
-            </Button>
-        </>
+            </Button> */}
+        </Container>
     )
 }

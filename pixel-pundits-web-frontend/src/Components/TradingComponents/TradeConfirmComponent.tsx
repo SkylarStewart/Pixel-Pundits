@@ -12,10 +12,10 @@ export default function TradeConfirmComponent({ trade }: { trade: ParsedTrade })
     //user context
     const { user } = useContext(UserContext)
 
-    function convertDBtoCardOBJ(card: Promise<any>){
+    function convertDBtoCardOBJ(card: Promise<any>) {
         card.then((result) => {
             console.log(result.name); // Access the name property once the promise is resolved
-            return{
+            return {
                 name: result.name,
                 set: result.set,
                 price: result.price,
@@ -55,15 +55,15 @@ export default function TradeConfirmComponent({ trade }: { trade: ParsedTrade })
                 <Col>
                     {
                         (isTradeMakerDetails(trade.tradeAccepterDetails) && trade.tradeAccepterDetails.userData.length > 0 && user.username === trade.tradeAccepterDetails.userData[0].username) ?
-                        (isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><b>Trade Partner: {trade.tradeAccepterDetails.userData[0].username}</b></Row>):
-                        (isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><b>Trade Partner: {trade.tradeAccepterDetails.userData[0].username}</b></Row>)
-                    }  
+                            (isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><b>Trade Partner: {trade.tradeAccepterDetails.userData[0].username}</b></Row>) :
+                            (isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><b>Trade Partner: {trade.tradeAccepterDetails.userData[0].username}</b></Row>)
+                    }
                     <Row>Their Cards:  </Row>
                     <Row>
                         {trade.tradeMakerCardsDetails.map((card, index) => (
                             <Container key={index}>
-                                <CardDisplayRow card={card}/>
-                                <hr/>
+                                <CardDisplayRow card={card} />
+                                <hr />
                             </Container>
                         ))}
                     </Row>
@@ -71,11 +71,12 @@ export default function TradeConfirmComponent({ trade }: { trade: ParsedTrade })
                     <Row>
                         {trade.tradeAccepterCardsDetails.map((card, index) => (
                             <Container key={index}>
-                                <CardDisplayRow card={card}/>
-                                <hr/>
+                                <CardDisplayRow card={card} />
+                                <hr />
                             </Container>
                         ))}
                     </Row>
+                    <p>Message: {trade.message}</p>
                     <Row>Trade Confirmed Complete</Row>
                 </Col>
             </Row>

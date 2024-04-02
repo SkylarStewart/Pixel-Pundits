@@ -46,13 +46,15 @@ export interface ParsedTrade {
     acceptStatus: boolean;
     tradeAccepter: string;
     tradeAccepterCards: string[];
-    tradeAccepterCardsDetails: CardObj[];
+    tradeAccepterCardsDetails: any[];
     tradeAccepterConfirmation: false;
     tradeAccepterDetails: JSON;
     tradeMaker: string;
     tradeMakerDetails: JSON;
     tradeMakerCards: string[];
-    tradeMakerCardsDetails: CardObj[];
+    tradeMakerCardsDetails: any[];
     tradeMakerConfirmation: boolean;
+    message: string;
+
 
 }

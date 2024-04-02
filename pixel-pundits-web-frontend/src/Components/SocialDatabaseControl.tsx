@@ -83,9 +83,9 @@ export async function getUsersFromIds(user: any, ids: string[]): Promise<any> {
     const headers = { Authorization: `Bearer ${user._accessToken}` };
 
     const resp: any = await request(GRAPHQL_ENDPOINT,
-         getUsersFromIdsQuery,
-          queryVariables,
-           headers);
-           
+        getUsersFromIdsQuery,
+        queryVariables,
+        headers);
+
     return resp;
 }

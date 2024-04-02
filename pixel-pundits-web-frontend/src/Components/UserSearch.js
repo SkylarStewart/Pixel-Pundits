@@ -131,18 +131,21 @@ export default function UserSearch() {
                     onChange={handleSearchTypeChange}
                 />
             </div>
+            <Button>
+                Make A Search
+            </Button>
             {/*rendering for cards and users*/}
-            <Container style={{ marginLeft: '0' }}>
+            <Container style={{ maxWidth: '500px', marginLeft: 'auto', marginRight: 'auto' }}>
                 {returnedUsers.map((user, index) => (
-                    <div key={index}>
-                        <Container>
-                            <Row className="align-items-center" style={{ maxWidth: '350px', width: '90vw', marginTop: '10px', marginBottom: '20px' }}>
+                    <div key={index} style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Container fluid>
+                            <Row className="align-items-center justify-content-center">
                                 {/* Profile Picture */}
                                 <Col xs="auto">
                                     <Image src={'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/340px-Default_pfp.svg.png'} roundedCircle style={{ width: '50px', height: '50px' }} />
                                 </Col>
                                 {/* Username */}
-                                <Col>
+                                <Col className="text-center">
                                     <h4 className="mb-0">{user.username}</h4>
                                 </Col>
                                 {/* Trade Button */}
@@ -155,21 +158,12 @@ export default function UserSearch() {
                 ))}
             </Container>
             <Container>
-                {/* {returnedCards.map((card, index) => (
-                    <Container key={index}>
-                        <p>{card.name}</p>
-                        <p>{card.ownerData.username}</p>
-                        <Button onClick={() => handleTradeNavigate(card.ownerData.user_id)}>Trade With Card Owner</Button>
-                        
-                    </Container>
-                ))} */}
-
-                <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
+                <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px", justifyContent: 'center' }}>
                     {returnedCards.map((card, index) => (
-                        <Col key={index}>
-                            <Image src={card.imageURL} style={{ paddingBottom: '010px' }}></Image>
-                            <p>{card.name}</p>
-                            <p>Owner: {card.ownerData.username}</p>
+                        <Col key={index} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px' }}>
+                            <Image src={card.imageURL} style={{ paddingBottom: '10px', maxWidth: '100%', height: 'auto' }}></Image>
+                            <p style={{ textAlign: 'center' }}>{card.name}</p>
+                            <p style={{ textAlign: 'center' }}>Owner: {card.ownerData.username}</p>
                             <Button onClick={() => handleTradeNavigate(card.ownerData.user_id)}>Trade With Owner</Button>
                         </Col>
                     ))}
