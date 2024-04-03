@@ -131,7 +131,7 @@ export default function UserSearch() {
                     onChange={handleSearchTypeChange}
                 />
             </div>
-            <Button>
+            <Button onClick={handleSubmit}>
                 Make A Search
             </Button>
             {/*rendering for cards and users*/}
