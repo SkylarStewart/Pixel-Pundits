@@ -44,7 +44,7 @@ export const UserProvider = ({ children }) => {
         const authenticatedUser = await app.logIn(credentials);
         setUser(authenticatedUser);
         //adds their username to the user's metadata through a separate request
-        await addUserMetadata(authenticatedUser, username, false)
+        await addUserMetadata(authenticatedUser, username, false, email)
         return authenticatedUser;
 
     };
