@@ -312,3 +312,39 @@ export async function getInventoryFromId(user: any, id: string): Promise<any> {
     );
     return resp;
 }
+
+
+export async function getRandomCards(user: any): Promise<any> {
+
+    //GraphQL query to retreive a
+    const getRandomCardsQuery = gql`
+        query FetchCards {
+            cards(limit: 16) {
+                _id
+                cardID
+                imageURL
+                name
+                price
+                print
+                set
+                setCode
+                owner
+            }
+        }
+    `;
+
+    //filtering (empty for now, change if we need to do more)
+    const queryVariables = {};
+
+    //auth (adds the following as a header to our request to validate that the correct user gets the correct data)
+    const headers = { Authorization: `Bearer ${user._accessToken}` };
+
+    //actual processing
+    const resp = await request(GRAPHQL_ENDPOINT,
+        getRandomCardsQuery,
+        queryVariables,
+        headers
+    );
+    return resp;
+}
+
