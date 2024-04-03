@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/Pixel-Pundits/static/css/main.db62923b.css",
-    "main.js": "/Pixel-Pundits/static/js/main.b82e85dd.js",
+    "main.js": "/Pixel-Pundits/static/js/main.c52e9ace.js",
     "static/js/453.93fee7d3.chunk.js": "/Pixel-Pundits/static/js/453.93fee7d3.chunk.js",
     "static/media/logo.svg": "/Pixel-Pundits/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/Pixel-Pundits/index.html",
     "main.db62923b.css.map": "/Pixel-Pundits/static/css/main.db62923b.css.map",
-    "main.b82e85dd.js.map": "/Pixel-Pundits/static/js/main.b82e85dd.js.map",
+    "main.c52e9ace.js.map": "/Pixel-Pundits/static/js/main.c52e9ace.js.map",
     "453.93fee7d3.chunk.js.map": "/Pixel-Pundits/static/js/453.93fee7d3.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.db62923b.css",
-    "static/js/main.b82e85dd.js"
+    "static/js/main.c52e9ace.js"
   ]
 }
