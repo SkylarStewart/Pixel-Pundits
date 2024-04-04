@@ -79,7 +79,7 @@ export default function Home() {
             <h1>Pixel Pundits: The App</h1>
             <UserSearch />
             <Container className="d-flex flex-column align-items-center" style={{ marginTop: "90px" }}>
-                <h3>Reccommended Cards - Gainesville, FL</h3>
+                <h3>Recommended Cards - Gainesville, FL</h3>
                 <Container>
                     <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px", justifyContent: 'center' }}>
                         {discoveredCards.map((card, index) => (

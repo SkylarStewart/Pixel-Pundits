@@ -18,7 +18,7 @@ import Tutorial from './pages/Tutorial.page';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Pixel-Pundits">
       {/* We are wrapping our whole app with UserProvider so that */}
       {/* our user is accessible through out the app from any page*/}
       <UserProvider>

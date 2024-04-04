@@ -40,7 +40,7 @@ export default function Profile() {
         try {
             const inven = await getFullInventory(user);
             setInventory(inven.cards);
-    
+
             const totalPrice = inven.cards.reduce((acc, card) => acc + card.price, 0).toFixed(2);
 
             // Set the total price in state
@@ -116,7 +116,8 @@ export default function Profile() {
             <Button onClick={searchAPI} class="btn btn-primary" style={{ marginTop: '20px' }}> Search </Button>
 
             <Container style={{ marginTop: "20px" }}>
-                {searchArr[0].name && searchArr.map((card, index) => (
+                {searchArr.length > 0 && searchArr.map((card, index) => (
+                    card.name && 
                     index % elementsPerRow === 0 && (
                         <Row key={`row-${index}`} className="justify-content-center">
                             {searchArr.slice(index, index + elementsPerRow).map((card, subIndex) => (
