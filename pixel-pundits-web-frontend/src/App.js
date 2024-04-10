@@ -17,6 +17,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Tutorial from './pages/Tutorial.page';
 
 function App() {
+
+
   return (
     <HashRouter>
       {/* We are wrapping our whole app with UserProvider so that */}
