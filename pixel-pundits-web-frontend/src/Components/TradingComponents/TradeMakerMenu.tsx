@@ -7,6 +7,7 @@ import { getInventoryFromId, getFullInventory } from '../CardDatabaseControl';
 import { CardObj } from '../../TypeSheet';
 import { useNavigate } from 'react-router-dom';
 import { addUserOfferTrade } from '../TradeDatabaseControl';
+import {sendOfferEmail, sendConfirmationEmail } from '../../mailer';
 
 //userData interface
 interface UserData {
@@ -139,8 +140,24 @@ export default function TradeMakerMenu(userId: any) {
         const otherSelectedCardIds = Object.entries(selectedOtherCards).filter(([cardId, isSelected]) => isSelected).map(([cardId]) => cardId);
         await addUserOfferTrade(user, userId.userId, mySelectedCardIds, otherSelectedCardIds, message, tradeType);
         navigate('/completedtrade');
+
+        const toEmail = otherUserData?.metadata.email;
+        const fromEmail = myData?.metadata.email;
+        const toName = otherUserData?.metadata.username;
+        const fromName = myData?.metadata.username;
+
+        //sends the email to the person offered a trade
+
+        sendOfferEmail(toEmail, toName, fromName, message);
+
+        //sends the email back to the trade creator
+
+        sendConfirmationEmail(fromEmail, toName, fromName, message);
+
+
     }
 
+    
     return (
         <Container style={{ paddingTop: '30px' }}>
             <h1>New Trade</h1>

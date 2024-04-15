@@ -319,7 +319,7 @@ export async function getRandomCards(user: any): Promise<any> {
     //GraphQL query to retreive a
     const getRandomCardsQuery = gql`
         query FetchCards {
-            cards(limit: 16) {
+            cards(limit: 200) {
                 _id
                 cardID
                 imageURL

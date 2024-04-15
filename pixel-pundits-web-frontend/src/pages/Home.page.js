@@ -61,12 +61,26 @@ export default function Home() {
                 };
             });
 
-            setDiscoveredCards(combinedData);
-        } catch (error) {
-            console.error('Error fectching random cards:', error);
-        }
-    }
+            // Shuffle the combinedData array
+            const shuffledCards = shuffleArray(combinedData);
 
+            // Select the first 20 cards
+            const selectedCards = shuffledCards.slice(0, 20);
+
+            setDiscoveredCards(selectedCards);
+        } catch (error) {
+            console.error('Error fetching random cards:', error);
+        }
+    };
+
+    // Utility function to shuffle an array
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        }
+        return array;
+    }
 
     useEffect(() => {
         loadDiscoveredCards();
@@ -79,7 +93,7 @@ export default function Home() {
             <h1>Pixel Pundits: The App</h1>
             <UserSearch />
             <Container className="d-flex flex-column align-items-center" style={{ marginTop: "90px" }}>
-                <h3>Reccommended Cards - Gainesville, FL</h3>
+                <h3>Recommended Cards - Gainesville, FL</h3>
                 <Container>
                     <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px", justifyContent: 'center' }}>
                         {discoveredCards.map((card, index) => (

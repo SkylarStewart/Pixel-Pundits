@@ -45,6 +45,7 @@ export async function getUserFromId(user: any, id: string): Promise<any> {
             private
             username
             user_id
+            email
         }
     }
     `;
