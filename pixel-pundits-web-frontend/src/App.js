@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import React from 'react';
-import { BrowserRouter, Route, Routes, HashRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, HashRouter, useLocation } from 'react-router-dom';
 import { UserProvider } from './contexts/user.context';
 import Home from './pages/Home.page';
 import Login from './pages/Login.page';
@@ -15,8 +15,12 @@ import MakeTrade from './pages/MakeTrade.page';
 import CompletedTrade from './pages/CompletedTrade.page';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Tutorial from './pages/Tutorial.page';
-
+import NavbarWrapper from './NavbarWrapper';
 function App() {
+
+  //using location to determine when to render the navbar
+  // const location = useLocation();
+  const showNav = !['/login', '/signup'].includes(location.pathname);
 
 
   return (
@@ -24,7 +28,7 @@ function App() {
       {/* We are wrapping our whole app with UserProvider so that */}
       {/* our user is accessible through out the app from any page*/}
       <UserProvider>
-        <NavigationBar/>
+        <NavbarWrapper></NavbarWrapper>
         <Routes>
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
@@ -32,11 +36,11 @@ function App() {
           {/* users by wrapping it with PrivateRoute here. */}
           <Route element={<PrivateRoute />}>
             <Route exact path="/" element={<Home />} />
-            <Route exact path = "/profile" element = {<Profile />}></Route>
-            <Route exact path = "/trades" element = {<Trades />}></Route>
-            <Route exact path = "/tutorial" element = {<Tutorial />}></Route>
-            <Route exact path = "/maketrade/:id" element = {<MakeTrade />}></Route>
-            <Route exact path = "/completedtrade" element = {<CompletedTrade/>}></Route>
+            <Route exact path="/profile" element={<Profile />}></Route>
+            <Route exact path="/trades" element={<Trades />}></Route>
+            <Route exact path="/tutorial" element={<Tutorial />}></Route>
+            <Route exact path="/maketrade/:id" element={<MakeTrade />}></Route>
+            <Route exact path="/completedtrade" element={<CompletedTrade />}></Route>
           </Route>
         </Routes>
       </UserProvider>

@@ -89,24 +89,26 @@ export default function Home() {
 
 
     return (
-        <Container className="d-flex flex-column align-items-center" style={{ minHeight: "100vh", marginTop: "40px" }}>
-            <h1>Pixel Pundits: The App</h1>
-            <UserSearch />
-            <Container className="d-flex flex-column align-items-center" style={{ marginTop: "90px" }}>
-                <h3>Recommended Cards - Gainesville, FL</h3>
-                <Container>
-                    <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px", justifyContent: 'center' }}>
-                        {discoveredCards.map((card, index) => (
-                            <Col key={index} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px' }}>
-                                <Image src={card.imageURL} style={{ paddingBottom: '10px', maxWidth: '100%', height: 'auto' }}></Image>
-                                <p style={{ textAlign: 'center' }}>{card.name}</p>
-                                <p style={{ textAlign: 'center' }}>Owner: {card.ownerData.username}</p>
-                                <Button onClick={() => handleTradeNavigate(card.ownerData.user_id)}>Trade With Owner</Button>
-                            </Col>
-                        ))}
-                    </Row>
+        <div className="body-background-freeform">
+            <Container className="d-flex flex-column align-items-center" style={{ minHeight: "100vh", paddingTop: "40px" }}>
+                <h1>Pixel Pundits: The App</h1>
+                <UserSearch />
+                <Container className="d-flex flex-column align-items-center" style={{ marginTop: "90px" }}>
+                    <h3>Recommended Cards - Gainesville, FL</h3>
+                    <Container>
+                        <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px", justifyContent: 'center' }}>
+                            {discoveredCards.map((card, index) => (
+                                <Col key={index} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px' }}>
+                                    <Image src={card.imageURL} style={{ paddingBottom: '10px', maxWidth: '100%', height: 'auto' }}></Image>
+                                    <p style={{ textAlign: 'center' }}>{card.name}</p>
+                                    <p style={{ textAlign: 'center' }}>Owner: {card.ownerData.username}</p>
+                                    <Button onClick={() => handleTradeNavigate(card.ownerData.user_id)}>Trade With Owner</Button>
+                                </Col>
+                            ))}
+                        </Row>
+                    </Container>
                 </Container>
             </Container>
-        </Container>
+        </div>
     )
 }

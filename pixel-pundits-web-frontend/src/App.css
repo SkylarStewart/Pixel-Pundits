@@ -1,3 +1,5 @@
+/*legacy CSS from init of create-react-app, keeping this here just because */
+
 .App {
   text-align: center;
 }
@@ -36,4 +38,42 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/* Global background styling. this will be called in a div that will encapsulate every page we render.*/
+.body-background {
+  background-color: transparent;
+  /* Use transparent if the base color isn't needed, or adjust as necessary */
+  background-size: 10px 10px;
+  background-image: repeating-linear-gradient(45deg,
+      rgba(171, 172, 183, 0.3) 0,
+      /* #abacb7 with opacity */
+      rgba(171, 172, 183, 0.3) 1px,
+      /* Maintain the same color, change the point if needed */
+      rgba(255, 255, 255, 0.3) 0,
+      /* #ffffff with opacity */
+      rgba(255, 255, 255, 0.3) 50%
+      /* Extend to 50% */
+    );
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.body-background-freeform {
+  background-color: transparent;
+  /* Use transparent if the base color isn't needed, or adjust as necessary */
+  background-size: 10px 10px;
+  background-image: repeating-linear-gradient(45deg,
+      rgba(171, 172, 183, 0.3) 0,
+      /* #abacb7 with opacity */
+      rgba(171, 172, 183, 0.3) 1px,
+      /* Maintain the same color, change the point if needed */
+      rgba(255, 255, 255, 0.3) 0,
+      /* #ffffff with opacity */
+      rgba(255, 255, 255, 0.3) 50%
+      /* Extend to 50% */
+    );
 }
