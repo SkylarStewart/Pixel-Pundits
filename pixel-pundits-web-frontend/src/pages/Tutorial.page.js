@@ -6,11 +6,12 @@ export default function Tutorial(){
     return(
         <div>
             <h1>Modifying Inventory</h1>
+            <hr/>
             <p>
                 The inventory is where a user would store there collection of cards they are willing to trade at a given moment.
                 It can be found in the Profile tab.
             </p>
-            <h2>Using the search to add cards</h2>
+            <h3><u>Using the Search to Add Cards</u></h3>
             <p>
                 In order to add a card, you need to find it first. To do so, you can use the search tool on the Profile page.
                 To get started, simply enter the name of the card and press search. After that, you will see every variant of
@@ -21,14 +22,16 @@ export default function Tutorial(){
                 That should help narrow down the amount of cards to look through. Once you find the card your looking for, simply 
                 press the Add Card button next to the card information and it will show up in your inventory.
             </p>
-            <h2>Removing cards from inventory</h2>
+            <h3><u>Removing Cards From Inventory</u></h3>
             <p>
                 Let's say you got a new deck and want to take a card out of your trade binder to put in it. Then you would also
                 want to take it out of your inventory too. To do that, all you have to do is scroll and find the card in your inventory,
                 then press the Remove Card button next to the card info and it'll dissapear.
             </p>
+
             <h1>Making a Trade</h1>
-            <h2>Initializing a Trade</h2>
+            <hr/>
+            <h3><u>Initializing a Trade</u></h3>
             <p>
                 In order to initalize a trade, you need to find a trade partner. There are to ways to do this. There is a search bar on the home
                 page under the titles "Want to Make a Trade?" That search has to modes. The first mode is to search for a user. That mode is
@@ -43,13 +46,13 @@ export default function Tutorial(){
                 the trade submitted, you can look Outgoing Offers section of the Trades page. Additionally, you can rescind the offer by clicking the
                 delete button after it was sent.
             </p>
-            <h2>Receiving a Trade Offer</h2>
+            <h3><u>Receiving a Trade Offer</u></h3>
             <p>
                 In order to check if you've received an offer, check Incoming Trades section of the Trades page. If you see a trade offer, make sure
                 to look over it. If you like the offer, press accept. If not, press delete and the offer will be declined. If you pressed accept, the
                 initializer will be notified and can begin the process of trading.
             </p>
-            <h2>Doing the Trade</h2>
+            <h3><u>Doing the Trade</u></h3>
             <p>
                 How you trade the cards is entirely up to you and the person you trade with. But, you do have a way to confirm on the app that the
                 trade has been completed and verify you got the cards. All trades that have been accepted but not completed can be found under the
