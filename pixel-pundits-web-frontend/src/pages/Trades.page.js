@@ -10,6 +10,7 @@ import { getCardsByArrayOfIds, getDBCard } from "../Components/CardDatabaseContr
 import { getUserFromId } from "../Components/SocialDatabaseControl";
 import { UserContext } from "../contexts/user.context";
 import TradeMakerMenu from '../Components/TradingComponents/TradeMakerMenu';
+import Footer from "../Components/Footer";
 
 //TEST PAGE for showing that the trade mechanic works as intended.=
 export default function Trades() {
@@ -186,6 +187,7 @@ export default function Trades() {
                 ))}
             </Container>
 
+                <Footer />
         </div>
     );
 }

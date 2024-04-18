@@ -8,6 +8,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { getUsersFromIds } from "../Components/SocialDatabaseControl";
 import { getRandomCards } from "../Components/CardDatabaseControl";
 import { Image, Button } from "react-bootstrap";
+import Footer from "../Components/Footer";
 
 
 export default function Home() {
@@ -109,6 +110,7 @@ export default function Home() {
                     </Container>
                 </Container>
             </Container>
+            <Footer/>
         </div>
     )
 }

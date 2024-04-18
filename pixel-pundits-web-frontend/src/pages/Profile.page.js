@@ -13,6 +13,7 @@ import { getUserFromUsername } from "../Components/SocialDatabaseControl";
 import CardDisplayRow from "../Components/CardDisplayRow";
 import { Form, Row, Col, Container } from "react-bootstrap";
 import SearchCardScryfall from "../ScryfallCalls/SearchCardScryfall";
+import Footer from "../Components/Footer";
 
 export default function Profile() {
 
@@ -139,6 +140,8 @@ export default function Profile() {
             </div>
 
             <br />
+
+            <Footer/>
 
         </Container>
     );
