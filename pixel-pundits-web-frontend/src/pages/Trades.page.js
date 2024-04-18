@@ -157,8 +157,7 @@ export default function Trades() {
 
 
     return (
-
-        <>
+        <div className="body-background-freeform">
             <Container style={{ paddingTop: "20px" }}>
                 <h1>Outgoing Offers</h1>
                 {offeredTrades.map((trade, index) => (
@@ -187,7 +186,7 @@ export default function Trades() {
                 ))}
             </Container>
 
-        </>
+        </div>
     );
 }
 
