@@ -7,7 +7,7 @@ import { getInventoryFromId, getFullInventory } from '../CardDatabaseControl';
 import { CardObj } from '../../TypeSheet';
 import { useNavigate } from 'react-router-dom';
 import { addUserOfferTrade } from '../TradeDatabaseControl';
-import {sendOfferEmail, sendConfirmationEmail } from '../../mailer';
+import { sendOfferEmail, sendConfirmationEmail } from '../../mailer';
 
 //userData interface
 interface UserData {
@@ -157,82 +157,90 @@ export default function TradeMakerMenu(userId: any) {
 
     }
 
-    
+
     return (
-        <Container style={{ paddingTop: '30px' }}>
-            <h1>New Trade</h1>
-            <Row className="mb-4" style={{ paddingTop: "30px" }}>
-                <Col>
-                    <h2>My Inventory ({myData?.metadata?.username})</h2>
-                    <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
-                        {myData?.inventory.map((card, index) => (
-                            <Col key={index}>
-                                <Image src={card.imageURL} style={{ paddingBottom: '010px' }}></Image>
-                                <Form.Group controlId={`my-card-${index}`}>
-                                    <Form.Check
-                                        type="checkbox"
-                                        label={`${card.name} - $${card.price}`}
-                                        onChange={() => handleMyCheckboxChange(card._id, card.price)}
-                                    />
-                                </Form.Group>
-                            </Col>
-                        ))}
-                    </Row>
-                </Col>
-            </Row>
-            <h4>{Object.keys(selectedMyCards).filter(key => selectedMyCards[key]).length} Cards Selected</h4>
-            <h4>Total Value: ${myPrice.toFixed(2)}</h4>
-            <Row className="mb-4" style={{ paddingTop: "30px" }}>
-                <Col>
-                    <h2>{otherUserData?.metadata?.username}{"'"}s Inventory</h2>
-                    <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
-                        {otherUserData?.inventory.map((card, index) => (
-                            <Col key={index}>
-                                <Image src={card.imageURL}></Image>
-                                <Form.Group controlId={`other-card-${index}`}>
-                                    <Form.Check
-                                        type="checkbox"
-                                        label={`${card.name} - $${card.price}`}
-                                        onChange={() => handleOtherCheckboxChange(card._id, card.price)}
-                                    />
-                                </Form.Group>
-                            </Col>
-                        ))}
-                    </Row>
-                </Col>
-            </Row>
-            <h4>{Object.keys(selectedOtherCards).filter(key => selectedOtherCards[key]).length} Cards Selected</h4>
-            <h4>Total Value: ${otherUserPrice.toFixed(2)}</h4>
-            <Container style={{ paddingTop: '30px' }}>
-                <Form>
-                    <Form.Group style={{ marginLeft: '-10px' }}>
-                        <h4>Select Trade Type</h4>
-                        <Form.Check
-                            type="radio"
-                            label="In-Person Trade"
-                            name="tradeType"
-                            value="in-person"
-                            checked={tradeType === 'in-person'}
-                            onChange={handleTradeTypeChange}
-                        />
-                        <Form.Check
-                            type="radio"
-                            label="Mail Trade"
-                            name="tradeType"
-                            value="mail"
-                            checked={tradeType === 'mail'}
-                            onChange={handleTradeTypeChange}
-                        />
-                        <Container style={{ marginTop: '30px' }}>
-                        </Container>
-                        <h4>Add Instructions/Message</h4>
-                        <Form.Control as="textarea" placeholder="Message here..." rows={3} onChange={handleMessageChange}></Form.Control>
-                    </Form.Group>
-                </Form>
+        <Container style={{ paddingTop: "40px", paddingBottom: "40px" }}>
+            <Container style={{
+                backgroundColor: "white",
+                borderRadius: "5px",
+                paddingTop: "20px",
+                paddingBottom: "20px",
+                boxShadow: "0 3px 10px rgb(0 0 0 / 0.1)"
+            }}>
+                <h1>Trade Maker Menu</h1>
+                <Row className="mb-4" style={{ paddingTop: "30px" }}>
+                    <Col>
+                        <h2>My Inventory</h2>
+                        <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
+                            {myData?.inventory.map((card, index) => (
+                                <Col key={index}>
+                                    <Image src={card.imageURL} style={{ paddingBottom: '010px' }}></Image>
+                                    <Form.Group controlId={`my-card-${index}`}>
+                                        <Form.Check
+                                            type="checkbox"
+                                            label={`${card.name} - $${card.price}`}
+                                            onChange={() => handleMyCheckboxChange(card._id, card.price)}
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            ))}
+                        </Row>
+                    </Col>
+                </Row>
+                <h4>{Object.keys(selectedMyCards).filter(key => selectedMyCards[key]).length} Cards Selected</h4>
+                <h4>Total Value: ${myPrice.toFixed(2)}</h4>
+                <Row className="mb-4" style={{ paddingTop: "30px" }}>
+                    <Col>
+                        <h2>{otherUserData?.metadata?.username}{"'"}s Inventory</h2>
+                        <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
+                            {otherUserData?.inventory.map((card, index) => (
+                                <Col key={index}>
+                                    <Image src={card.imageURL}></Image>
+                                    <Form.Group controlId={`other-card-${index}`}>
+                                        <Form.Check
+                                            type="checkbox"
+                                            label={`${card.name} - $${card.price}`}
+                                            onChange={() => handleOtherCheckboxChange(card._id, card.price)}
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            ))}
+                        </Row>
+                    </Col>
+                </Row>
+                <h4>{Object.keys(selectedOtherCards).filter(key => selectedOtherCards[key]).length} Cards Selected</h4>
+                <h4>Total Value: ${otherUserPrice.toFixed(2)}</h4>
+                <Container style={{ paddingTop: '30px' }}>
+                    <Form>
+                        <Form.Group style={{ marginLeft: '-10px' }}>
+                            <h4>Select Trade Type</h4>
+                            <Form.Check
+                                type="radio"
+                                label="In-Person Trade"
+                                name="tradeType"
+                                value="in-person"
+                                checked={tradeType === 'in-person'}
+                                onChange={handleTradeTypeChange}
+                            />
+                            <Form.Check
+                                type="radio"
+                                label="Mail Trade"
+                                name="tradeType"
+                                value="mail"
+                                checked={tradeType === 'mail'}
+                                onChange={handleTradeTypeChange}
+                            />
+                            <Container style={{ marginTop: '30px' }}>
+                            </Container>
+                            <h4>Add Instructions/Message</h4>
+                            <Form.Control as="textarea" placeholder="Message here..." rows={3} onChange={handleMessageChange}></Form.Control>
+                        </Form.Group>
+                    </Form>
+                </Container>
+                <Button style={{ marginTop: '30px', marginBottom: '30px' }} onClick={submitTrade}>
+                    Submit Trade
+                </Button>
             </Container>
-            <Button style={{ marginTop: '30px', marginBottom: '30px' }} onClick={submitTrade}>
-                Submit Trade
-            </Button>
         </Container>
     );
 

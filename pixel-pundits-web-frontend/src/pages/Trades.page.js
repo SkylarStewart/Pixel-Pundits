@@ -65,7 +65,6 @@ export default function Trades() {
             }));
 
             setOfferedTrades(tradesWithCardDetails);
-            console.log(offeredTrades);
         } catch (error) {
             console.error('Error loading offered trades with card details:', error);
         }
@@ -104,7 +103,6 @@ export default function Trades() {
             }));
 
             setAcceptTrades(tradesWithCardDetails);
-            console.log(acceptTrades);
         } catch (error) {
             console.error('Error loading offered trades with card details:', error);
         }
@@ -143,7 +141,6 @@ export default function Trades() {
             }));
 
             setCompletedTrades(tradesWithCardDetails);
-            console.log(completedTrades);
         } catch (error) {
             console.error('Error loading offered trades with card details:', error);
         }
@@ -157,37 +154,128 @@ export default function Trades() {
 
 
 
+    // return (
+    //     <div className="body-background-freeform">
+    //         <Container style={{ minHeight: "87vh" }}>
+    //             <Container style={{ paddingTop: "20px" }}>
+    //                 <h1>Outgoing Offers</h1>
+    //                 {offeredTrades.map((trade, index) => (
+    //                     <Container key={index}>
+    //                         <TradeOfferComponent trade={trade} />
+    //                     </Container>
+
+    //                 ))}
+    //             </Container>
+    //             <Container style={{ paddingTop: "20px" }}>
+    //                 <h1>Incoming Offers</h1>
+    //                 {acceptTrades.map((trade, index) => (
+    //                     <Container key={index}>
+    //                         <TradeAcceptComponent trade={trade} />
+    //                     </Container>
+
+    //                 ))}
+    //             </Container>
+    //             <Container style={{ paddingTop: "20px" }}>
+    //                 <h1>Completed Trades</h1>
+    //                 {completedTrades.map((trade, index) => (
+    //                     <Container key={index}>
+    //                         <TradeConfirmComponent trade={trade} />
+    //                     </Container>
+
+    //                 ))}
+    //             </Container>
+    //         </Container>
+
+    //         <Footer />
+    //     </div>
+    // );
+
+    const hasTradesToShow = offeredTrades.length > 0 || acceptTrades.length > 0 || completedTrades.length > 0;
+
+
     return (
         <div className="body-background-freeform">
-            <Container style={{ paddingTop: "20px" }}>
-                <h1>Outgoing Offers</h1>
-                {offeredTrades.map((trade, index) => (
-                    <Container key={index}>
-                        <TradeOfferComponent trade={trade} />
-                    </Container>
+            <Container style={{ minHeight: "87vh" }}>
+                {!hasTradesToShow ? (
+                    <div style={{ padding: "20px" }}>
+                        <Container style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '100px',
+                            width: '500px',
+                            backgroundColor: "white",
+                            borderRadius: "10px",
+                            boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)"
+                        }}>
+                            <p>There are no trades to display at this time.</p>
+                            <Button variant="dark">Go Home</Button>
+                        </Container>
 
-                ))}
+                    </div>
+                ) : (
+                    <>
+                        {offeredTrades.length > 0 && (
+                            <Container style={{ paddingTop: "40px", paddingBottom: "20px" }}>
+                                <Container style={{
+                                    backgroundColor: "white",
+                                    borderRadius: "10px",
+                                    paddingTop: "20px",
+                                    paddingBottom: "20px",
+                                    boxShadow: "0 3px 10px rgb(0 0 0 / 0.1)"
+                                }}>
+                                    {offeredTrades.map((trade, index) => (
+                                        <div key={index}>
+                                            <TradeOfferComponent trade={trade} />q
+                                        </div>
+                                    ))}
+                                </Container>
+                            </Container>
+                        )}
+                        {acceptTrades.length > 0 && (
+                            <Container style={{ paddingTop: "20px", paddingBottom: "20px" }}>
+                                <Container style={{
+                                    backgroundColor: "white",
+                                    borderRadius: "10px",
+                                    paddingTop: "20px",
+                                    paddingBottom: "20px",
+                                    boxShadow: "0 3px 10px rgb(0 0 0 / 0.1)"
+                                }}>
+                                    <h1>Incoming Offers</h1>
+                                    {acceptTrades.map((trade, index) => (
+                                        <Container key={index}>
+                                            <TradeAcceptComponent trade={trade} />
+                                        </Container>
+                                    ))}
+                                </Container>
+                            </Container>
+                        )}
+                        {completedTrades.length > 0 && (
+                            <Container style={{ paddingTop: "20px", paddingBottom: "20px" }}>
+                                <Container style={{
+                                    backgroundColor: "white",
+                                    borderRadius: "10px",
+                                    paddingTop: "20px",
+                                    paddingBottom: "20px",
+                                    boxShadow: "0 3px 10px rgb(0 0 0 / 0.1)"
+                                }}>
+                                    <h1>Completed Trades</h1>
+                                    {completedTrades.map((trade, index) => (
+                                        <Container key={index}>
+                                            <TradeConfirmComponent trade={trade} />
+                                        </Container>
+                                    ))}
+                                </Container>
+                            </Container>
+                        )}
+                    </>
+                )}
             </Container>
-            <Container style={{ paddingTop: "20px" }}>
-                <h1>Incoming Offers</h1>
-                {acceptTrades.map((trade, index) => (
-                    <Container key={index}>
-                        <TradeAcceptComponent trade={trade} />
-                    </Container>
+            <Container style={{ height: "20px" }}>
 
-                ))}
             </Container>
-            <Container style={{ paddingTop: "20px" }}>
-                <h1>Completed Trades</h1>
-                {completedTrades.map((trade, index) => (
-                    <Container key={index}>
-                        <TradeConfirmComponent trade={trade} />
-                    </Container>
-
-                ))}
-            </Container>
-
-                <Footer />
+            <Footer />
         </div>
     );
 }

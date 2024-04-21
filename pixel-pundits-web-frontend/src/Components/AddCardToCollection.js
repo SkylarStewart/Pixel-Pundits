@@ -1,5 +1,6 @@
 import { Container, Button, Row, Form, FormControl, Col} from "react-bootstrap"
 import CardDisplayRow from './CardDisplayRow'
+import CardDisplaySolo from "./CardDisplaySolo";
 import { useState, React } from "react";
 import SearchCardScryfall from "../ScryfallCalls/SearchCardScryfall"
 
@@ -36,7 +37,7 @@ export default function AddCardToCollection(setInventory){
             {
                 searchResults.forEach((card) =>(
                     <Row>
-                        <Col><CardDisplayRow card={card}/></Col>
+                        <Col><CardDisplaySolo card={card}/></Col>
                         <Col>
                             <Button onClick={AddCard}> Add Card </Button>
                         </Col>

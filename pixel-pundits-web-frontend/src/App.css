@@ -43,19 +43,7 @@
 
 /* Global background styling. this will be called in a div that will encapsulate every page we render.*/
 .body-background {
-  background-color: transparent;
-  /* Use transparent if the base color isn't needed, or adjust as necessary */
-  background-size: 10px 10px;
-  background-image: repeating-linear-gradient(45deg,
-      rgba(171, 172, 183, 0.3) 0,
-      /* #abacb7 with opacity */
-      rgba(171, 172, 183, 0.3) 1px,
-      /* Maintain the same color, change the point if needed */
-      rgba(255, 255, 255, 0.3) 0,
-      /* #ffffff with opacity */
-      rgba(255, 255, 255, 0.3) 50%
-      /* Extend to 50% */
-    );
+  background-color: #9BC1BC;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -63,17 +51,56 @@
 }
 
 .body-background-freeform {
-  background-color: transparent;
+  background-color: #9BC1BC;
   /* Use transparent if the base color isn't needed, or adjust as necessary */
-  background-size: 10px 10px;
-  background-image: repeating-linear-gradient(45deg,
-      rgba(171, 172, 183, 0.3) 0,
-      /* #abacb7 with opacity */
-      rgba(171, 172, 183, 0.3) 1px,
-      /* Maintain the same color, change the point if needed */
-      rgba(255, 255, 255, 0.3) 0,
-      /* #ffffff with opacity */
-      rgba(255, 255, 255, 0.3) 50%
-      /* Extend to 50% */
-    );
+}
+
+.card-display-container {
+  max-width: 300px;
+  border: none;
+  padding: 0;
+  /* Remove padding around the container */
+  margin: 0 auto;
+  /* Center the container if needed */
+}
+
+.card-display {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+  border-radius: 5px;
+  /* Optional: Adds rounded corners */
+  padding: 5px;
+  /* Minimal padding inside the card */
+}
+
+.image-col img {
+  border-radius: 5px;
+  /* Rounded corners for the image */
+  height: auto;
+  max-width: 100%;
+  /* Ensures the image is fully visible within the column */
+}
+
+.info-row {
+  margin-top: 2px;
+  /* Very minimal space between rows */
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  padding-left: 2px;
+  /* Minimal padding to align text slightly off the edge */
+  padding-right: 2px;
+  /* Ensures text doesn't touch the right edge */
+}
+
+@media (max-width: 768px) {
+  .card-display {
+    width: 100%;
+    padding: 5px;
+  }
+
+  .info-row {
+    font-size: 12px;
+    /* Smaller font size for smaller screens */
+  }
 }
