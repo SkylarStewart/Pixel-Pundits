@@ -152,7 +152,7 @@ export default function UserSearch() {
                                 </Col>
                                 {/* Trade Button */}
                                 <Col xs="auto">
-                                    <Button variant = "dark" onClick={() => handleTradeNavigate(user.user_id)}>Trade with User</Button>
+                                    <Button variant="dark" onClick={() => handleTradeNavigate(user.user_id)}>Trade with User</Button>
                                 </Col>
                             </Row>
                         </Container>
@@ -165,8 +165,8 @@ export default function UserSearch() {
                         <Col key={index} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px' }}>
                             <Image src={card.imageURL} style={{ paddingBottom: '10px', maxWidth: '100%', height: 'auto' }}></Image>
                             <p style={{ textAlign: 'center' }}>{card.name}</p>
-                            <p style={{ textAlign: 'center', marginTop: "-10px"}}>Owner: {card.ownerData.username}</p>
-                            <Button variant = "dark" onClick={() => handleTradeNavigate(card.ownerData.user_id)}>Trade With Owner</Button>
+                            <p style={{ textAlign: 'center', marginTop: "-10px" }}>Owner: {card.ownerData.username}</p>
+                            <Button variant="dark" onClick={() => handleTradeNavigate(card.ownerData.user_id)}>Trade With Owner</Button>
                         </Col>
                     ))}
                 </Row>

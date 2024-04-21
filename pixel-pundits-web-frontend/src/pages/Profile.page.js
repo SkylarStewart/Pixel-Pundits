@@ -226,7 +226,7 @@ export default function Profile() {
                     paddingTop: "20px",
                     paddingBottom: "20px",
                     boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
-                    marginBottom: "0"
+                    marginBottom: "20px"
 
                 }}>
                     <div>
