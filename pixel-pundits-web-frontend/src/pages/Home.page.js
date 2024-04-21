@@ -8,9 +8,13 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { getUsersFromIds } from "../Components/SocialDatabaseControl";
 import { getRandomCards } from "../Components/CardDatabaseControl";
 import { Image, Button } from "react-bootstrap";
-
+import Footer from "../Components/Footer";
+import TradingCardTable from "../Components/CardTable";
 
 export default function Home() {
+
+    const boxColor = "white";
+    const textColor = "white"
 
 
     const navigate = useNavigate();
@@ -61,6 +65,7 @@ export default function Home() {
                 };
             });
 
+
             // Shuffle the combinedData array
             const shuffledCards = shuffleArray(combinedData);
 
@@ -89,24 +94,73 @@ export default function Home() {
 
 
     return (
-        <Container className="d-flex flex-column align-items-center" style={{ minHeight: "100vh", marginTop: "40px" }}>
-            <h1>Pixel Pundits: The App</h1>
-            <UserSearch />
-            <Container className="d-flex flex-column align-items-center" style={{ marginTop: "90px" }}>
-                <h3>Recommended Cards - Gainesville, FL</h3>
-                <Container>
-                    <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px", justifyContent: 'center' }}>
-                        {discoveredCards.map((card, index) => (
-                            <Col key={index} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px' }}>
-                                <Image src={card.imageURL} style={{ paddingBottom: '10px', maxWidth: '100%', height: 'auto' }}></Image>
-                                <p style={{ textAlign: 'center' }}>{card.name}</p>
-                                <p style={{ textAlign: 'center' }}>Owner: {card.ownerData.username}</p>
-                                <Button onClick={() => handleTradeNavigate(card.ownerData.user_id)}>Trade With Owner</Button>
-                            </Col>
-                        ))}
-                    </Row>
+        <div className="body-background-freeform">
+            <Container className="d-flex flex-column align-items-center" style={{ minHeight: "100vh", paddingTop: "40px" }}>
+                <Container className="d-flex flex-column align-items-center"
+                    style={{
+                        backgroundColor: boxColor,
+                        borderRadius: "10px",
+                        paddingTop: "20px",
+                        paddingBottom: "20px",
+                        boxShadow: "0 3px 10px rgb(0 0 0 / 0.1)"
+                    }}>
+                    <h1>Pixel Pundits: The App</h1>
+                    <UserSearch />
+                </Container>
+                {/* <Container className="d-flex flex-column align-items-center"
+                    style={{
+                        marginTop: "50px",
+                        marginBottom: "50px",
+                        backgroundColor: boxColor,
+                        borderRadius: "10px",
+                        paddingTop: "20px",
+                        paddingBottom: "20px",
+                        boxShadow: "0 3px 10px rgb(0 0 0 / 0.1)"
+                    }}>
+                    <h3>Recommended Cards - Gainesville, FL</h3>
+                    <Container>
+                        <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px", justifyContent: 'center' }}>
+                            {discoveredCards.map((card, index) => (
+                                <Col key={index} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10px' }}>
+                                    <Image src={card.imageURL} style={{ paddingBottom: '10px', maxWidth: '100%', height: 'auto' }}></Image>
+                                    <p style={{
+                                        textAlign: 'center',
+                                        whiteSpace: 'nowrap',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        maxWidth: '100%'
+                                    }}>
+                                        {card.name}
+                                    </p>
+                                    <p style={{
+                                        textAlign: 'center',
+                                        whiteSpace: 'nowrap',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        maxWidth: '100%'
+                                    }}>
+                                        Owner: {card.ownerData.username}
+                                    </p>
+                                    <Button variant="dark" onClick={() => handleTradeNavigate(card.ownerData.user_id)}>Trade With Owner</Button>
+                                </Col>
+                            ))}
+                        </Row>
+                    </Container>
+                </Container> */}
+                <Container className="d-flex flex-column align-items-center"
+                    style={{
+                        marginTop: "50px",
+                        marginBottom: "50px",
+                        backgroundColor: boxColor,
+                        borderRadius: "10px",
+                        paddingTop: "20px",
+                        paddingBottom: "20px",
+                        boxShadow: "0 3px 10px rgb(0 0 0 / 0.1)"
+                    }}>
+                    <TradingCardTable cards={discoveredCards}></TradingCardTable>
                 </Container>
             </Container>
-        </Container>
+            <Footer />
+        </div>
     )
 }

@@ -1,8 +1,8 @@
-import { Button } from "@mui/material";
-import { useContext, useEffect, useState, React} from "react";
+import { useContext, useEffect, useState, React } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/user.context";
-
+import { Row, Col, Button, Container } from "react-bootstrap";
+import BackgroundPattern from '../Images/BackgroundPattern.png'
 
 //login page
 //the backend glue part was copied from https://www.mongodb.com/developer/products/atlas/email-password-authentication-react/ :)
@@ -83,31 +83,47 @@ export default function Login() {
 
     //page rendering (hooking in to the components we have defined above.)
     return (
-        <>
-            <h1>Log in to Pixel Pundits</h1>
-            <div>
+        <div className="body-background">
+            <Container className="d-flex justify-content-center align-items-center min-vh-100">
+                <Container className="text-center p-4" style={{
+                    width: "100%",
+                    maxWidth: "400px",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
+                }}>
+                    <h1>Log in to Pixel Pundits</h1>
+                    <div className="form-group" style={{ textAlign: 'left', marginBottom: '10px' }}>
+                        <label htmlFor="email" style={{ marginBottom: '5px' }}>Email</label>
+                        <input
+                            id="email"
+                            type="email"
+                            name="email"
+                            className="form-control"
+                            value={form.email}
+                            onChange={onFormInputChange}
+                        />
+                    </div>
+                    <div className="form-group" style={{ textAlign: 'left', marginBottom: "18px" }}>
+                        <label htmlFor="password" style={{ marginBottom: '5px' }}>Password</label>
+                        <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            className="form-control"
+                            value={form.password}
+                            onChange={onFormInputChange} />
+                    </div>
+                    <Button
+                        variant="primary"
+                        onClick={onSubmit}
+                        style={{ marginBottom: '10px' }}>
+                        Log In
+                    </Button>
+                    <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+                </Container>
+            </Container>
+        </div>
 
-                <p>email</p>
-                <input
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={onFormInputChange} />
-
-                <p>password</p>
-                <input
-                    type="password"
-                    name="password"
-                    value={form.password}
-                    onChange={onFormInputChange} />
-            </div>
-            <Button
-                variant="contianed"
-                color="primary"
-                onClick={onSubmit}>
-                Log In
-            </Button>
-            <p>Dont have an account? <Link to="/signup">Sign up</Link></p>
-        </>
     );
 }

@@ -1,3 +1,5 @@
+/*legacy CSS from init of create-react-app, keeping this here just because */
+
 .App {
   text-align: center;
 }
@@ -36,4 +38,79 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/* Global background styling. this will be called in a div that will encapsulate every page we render.*/
+.body-background {
+  background-color: #9BC1BC;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.body-background-freeform {
+  background-color: #9BC1BC;
+  /* Use transparent if the base color isn't needed, or adjust as necessary */
+}
+
+.card-display-container {
+  max-width: 300px;
+  border: none;
+  padding: 0;
+  /* Remove padding around the container */
+  margin: 0 auto;
+  /* Center the container if needed */
+}
+
+.card-display {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+  border-radius: 5px;
+  /* Optional: Adds rounded corners */
+  padding: 5px;
+  /* Minimal padding inside the card */
+}
+
+.image-col img {
+  border-radius: 5px;
+  /* Rounded corners for the image */
+  height: auto;
+  max-width: 100%;
+  /* Ensures the image is fully visible within the column */
+}
+
+.info-row {
+  margin-top: 2px;
+  /* Very minimal space between rows */
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  padding-left: 2px;
+  /* Minimal padding to align text slightly off the edge */
+  padding-right: 2px;
+  /* Ensures text doesn't touch the right edge */
+}
+
+@media (max-width: 768px) {
+  .card-display {
+    width: 100%;
+    padding: 5px;
+  }
+
+  .info-row {
+    font-size: 12px;
+    /* Smaller font size for smaller screens */
+  }
+}
+
+
+.black-radio .form-check-input:checked {
+  background-color: black;
+  border-color: black;
+}
+
+.black-radio .form-check-input:checked + .form-check-label {
+  color: black; /* Optional: changes label color if needed */
 }
