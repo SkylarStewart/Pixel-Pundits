@@ -15,6 +15,7 @@ import Footer from "../Components/Footer";
 //TEST PAGE for showing that the trade mechanic works as intended.=
 export default function Trades() {
 
+    const navigate = useNavigate();
 
     const exampleTrade = {
         acceptStatus: false,
@@ -210,7 +211,7 @@ export default function Trades() {
                             boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)"
                         }}>
                             <p>There are no trades to display at this time.</p>
-                            <Button variant="dark">Go Home</Button>
+                            <Button variant="dark" onClick={() => { navigate("/") }}>Go Home</Button>
                         </Container>
 
                     </div>
@@ -227,7 +228,7 @@ export default function Trades() {
                                 }}>
                                     {offeredTrades.map((trade, index) => (
                                         <div key={index}>
-                                            <TradeOfferComponent trade={trade} />q
+                                            <TradeOfferComponent trade={trade} />
                                         </div>
                                     ))}
                                 </Container>

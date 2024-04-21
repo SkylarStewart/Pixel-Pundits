@@ -104,3 +104,13 @@
     /* Smaller font size for smaller screens */
   }
 }
+
+
+.black-radio .form-check-input:checked {
+  background-color: black;
+  border-color: black;
+}
+
+.black-radio .form-check-input:checked + .form-check-label {
+  color: black; /* Optional: changes label color if needed */
+}

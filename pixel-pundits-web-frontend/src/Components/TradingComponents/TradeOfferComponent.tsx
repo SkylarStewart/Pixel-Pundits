@@ -18,9 +18,6 @@ interface Card {
     };
 }
 
-interface Props {
-    cards: Card[];
-}
 
 export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
     const { user } = useContext(UserContext);
@@ -38,12 +35,6 @@ export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
         filterAndSortAccepterCards(search, sortOrder);
         filterAndSortMakerCards(search, sortOrder);
     }, [filteredCards, filteredMakerCards, sortOrder, search]);
-
-
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        const value = event.target.value;
-        setSearch(value);
-    };
 
     const handleImageClick = (event: React.MouseEvent<HTMLAnchorElement>, imageUrl: string): void => {
         event.preventDefault();
@@ -130,14 +121,14 @@ export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
     }
 
     return (
-        <Container>
-            <h1>Outgoing Offers</h1>
+        <Container >
+            <h1 >Outgoing Offers</h1>
             <Row>
                 <Col>
                     {isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><h4>Trade Recipient: {trade.tradeAccepterDetails.userData[0].username}</h4></Row>}
-                    <Row><h4>Their Cards: </h4></Row>
+                    <Row style = {{marginTop: "40px"}}><h4>Their Cards: </h4></Row>
                     <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
-                        <div>
+                        <div style = {{width: "100%"}}>
                             <Table striped bordered hover>
                                 <thead>
                                     <tr>
@@ -146,7 +137,6 @@ export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
                                         <th>Set</th>
                                         <th onClick={handleSortByPrice} style={{ cursor: 'pointer' }}>Price</th>
                                         <th>Print</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -157,7 +147,6 @@ export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
                                             <td>{card.set}</td>
                                             <td>${card.price}</td>
                                             <td>{card.print}</td>
-                                            <td><Button variant="dark">Trade</Button></td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -176,18 +165,48 @@ export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
                             </Modal>
                         </div>
                     </Row>
-                    <Row><h4>Your Cards: </h4></Row>
+                    <Row style = {{marginTop: "40px"}}><h4>Your Cards: </h4></Row>
                     <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
-                        {trade.tradeAccepterCardsDetails.map((card, index) => (
-                            <Col key={index}>
-                                <Image src={card.imageURL} style={{ paddingBottom: '010px' }}></Image>
-                                <p>{card.name}</p>
-                            </Col>
-                        ))}
+                        <div style = {{width: "100%"}}>
+                            <Table striped bordered hover>
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Set</th>
+                                        <th onClick={handleSortByPrice} style={{ cursor: 'pointer' }}>Price</th>
+                                        <th>Print</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {filteredMakerCards.map((card, index) => (
+                                        <tr key={index}>
+                                            <td onClick={() => { handleImageClick }}><Image src={card.imageURL} style={{ height: "60px", width: "40px" }}></Image></td>
+                                            <td>{card.name}</td>
+                                            <td>{card.set}</td>
+                                            <td>${card.price}</td>
+                                            <td>{card.print}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                            <Modal show={showModal} onHide={handleCloseModal} centered>
+                                <Modal.Body style={{
+                                    padding: "10px",
+                                    width: "220px",
+                                    height: "320px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}>
+                                    <Image src={modalImageUrl} alt="Card Image" fluid onClick={handleCloseModal} />
+                                </Modal.Body>
+                            </Modal>
+                        </div>
                     </Row>
                     <Row style={{ marginTop: '30px' }}><h4>Message: {trade.message}</h4></Row>
                     {trade.acceptStatus ? (
-                        <Button onClick={() => confirmTradeAsMaker(user, trade._id)}>Confirm Trade</Button>
+                        <Button variant="dark" onClick={() => confirmTradeAsMaker(user, trade._id)}>Confirm Trade</Button>
                     ) : (
                         <Button variant="dark" onClick={() => deleteTrade(user, trade._id)}>Delete Trade</Button>
                     )}
