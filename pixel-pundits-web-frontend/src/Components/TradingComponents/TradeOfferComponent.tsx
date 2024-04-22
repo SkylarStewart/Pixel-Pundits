@@ -128,7 +128,7 @@ export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
                     {isTradeMakerDetails(trade.tradeAccepterDetails) && <Row><h4>Trade Recipient: {trade.tradeAccepterDetails.userData[0].username}</h4></Row>}
                     <Row style = {{marginTop: "40px"}}><h4>Their Cards: </h4></Row>
                     <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
-                        <div style = {{width: "100%"}}>
+                        <div style = {{width: "100%"}} className="table-responsive">
                             <Table striped bordered hover>
                                 <thead>
                                     <tr>
@@ -167,7 +167,7 @@ export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
                     </Row>
                     <Row style = {{marginTop: "40px"}}><h4>Your Cards: </h4></Row>
                     <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
-                        <div style = {{width: "100%"}}>
+                        <div style = {{width: "100%"}} className="table-responsive">
                             <Table striped bordered hover>
                                 <thead>
                                     <tr>

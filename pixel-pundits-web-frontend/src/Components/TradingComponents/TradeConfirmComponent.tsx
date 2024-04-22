@@ -145,8 +145,8 @@ export default function TradeConfirmComponent({ trade }: { trade: ParsedTrade })
                         </Row>
                     )}
                     <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
-                        <div style={{ width: "100%" }}>
-                            <Table striped bordered hover>
+                        <div style={{ width: "100%" }} className="table-responsive">
+                            <Table striped bordered hover >
                                 <thead>
                                     <tr>
                                         <th>Image</th>
@@ -188,7 +188,7 @@ export default function TradeConfirmComponent({ trade }: { trade: ParsedTrade })
                         </Row>
                     )}
                     <Row xs={1} md={4} className="g-4" style={{ marginTop: "0px" }}>
-                        <div style={{ width: "100%" }}>
+                        <div style={{ width: "100%" }} className="table-responsive">
                             <Table striped bordered hover>
                                 <thead>
                                     <tr>

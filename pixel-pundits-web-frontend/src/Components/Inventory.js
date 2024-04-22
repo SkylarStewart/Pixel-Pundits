@@ -66,7 +66,7 @@ export default function Inventory({ cards, helperFunction }) {
     const elementsPerRow = 4;
 
     return (
-        <div style={{marginTop: "20px"}}>
+        <div style={{ marginTop: "20px" }}>
             {/* {cards.map((card, index) => (
                 // Use modulus operator to determine when to start a new row
                 index % elementsPerRow === 0 && (
@@ -90,30 +90,33 @@ export default function Inventory({ cards, helperFunction }) {
                         onChange={handleSearchChange}
                     />
                 </Form>
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Set</th>
-                            <th onClick={handleSortByPrice} style={{ cursor: 'pointer' }}>Price</th>
-                            <th>Print</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredCards.map((card, index) => (
-                            <tr key={index}>
-                                <td onClick={() => { handleImageClick }}><Image src={card.imageURL} style={{ height: "60px", width: "40px" }}></Image></td>
-                                <td>{card.name}</td>
-                                <td>{card.set}</td>
-                                <td>${card.price}</td>
-                                <td>{card.print}</td>
-                                <td><Button variant="dark" onClick={() => deleteDBCard(user, card._id, helperFunction)}>Delete</Button></td>
+                <div className = "table-responsive">
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Set</th>
+                                <th onClick={handleSortByPrice} style={{ cursor: 'pointer' }}>Price</th>
+                                <th>Print</th>
+                                <th>Action</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </Table>
+                        </thead>
+                        <tbody>
+                            {filteredCards.map((card, index) => (
+                                <tr key={index}>
+                                    <td onClick={() => { handleImageClick }}><Image src={card.imageURL} style={{ height: "60px", width: "40px" }}></Image></td>
+                                    <td>{card.name}</td>
+                                    <td>{card.set}</td>
+                                    <td>${card.price}</td>
+                                    <td>{card.print}</td>
+                                    <td><Button variant="dark" onClick={() => deleteDBCard(user, card._id, helperFunction)}>Delete</Button></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </div>
+
                 <Modal show={showModal} onHide={handleCloseModal} centered>
                     <Modal.Body style={{
                         padding: "10px",
