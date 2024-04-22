@@ -176,7 +176,7 @@ export default function Profile() {
                         ))} */}
 
                         <div style={{ marginTop: "20px" }}>
-                            <div>
+                            <div className="table-responsive">
                                 <Table striped bordered hover>
                                     <thead>
                                         <tr>

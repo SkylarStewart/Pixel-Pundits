@@ -4,6 +4,8 @@ import { CardObj } from '../TypeSheet';
 import { UserContext } from '../contexts/user.context';
 import { useContext } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 
 interface Card {
     name: string;
@@ -13,6 +15,7 @@ interface Card {
     print: string;
     ownerData?: {
         username: string;
+        user_id: string;
     };
 }
 
@@ -23,12 +26,19 @@ interface Props {
 const TradingCardTable: React.FC<Props> = ({ cards }) => {
 
 
-    const { user } = useContext(UserContext)
+    const { user } = useContext(UserContext);
+    const navigate = useNavigate();
     const [search, setSearch] = useState<string>('');
     const [filteredCards, setFilteredCards] = useState<Card[]>([]);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [modalImageUrl, setModalImageUrl] = useState<string>('');
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+
+    const handleTradeNavigate = (data: any) => {
+        const URLID = data;
+        navigate(`/maketrade/${URLID}`);
+
+    }
 
     useEffect(() => {
         filterAndSortCards(search, sortOrder);
@@ -80,32 +90,40 @@ const TradingCardTable: React.FC<Props> = ({ cards }) => {
                     onChange={handleSearchChange}
                 />
             </Form>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Set</th>
-                        <th onClick={handleSortByPrice} style={{ cursor: 'pointer' }}>Price</th>
-                        <th>Print</th>
-                        {cards.some(card => card.ownerData) && <th>Owner</th>}
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredCards.map((card, index) => (
-                        <tr key={index}>
-                            <td onClick={() => { handleImageClick }}><Image src={card.imageURL} style={{ height: "60px", width: "40px" }}></Image></td>
-                            <td>{card.name}</td>
-                            <td>{card.set}</td>
-                            <td>${card.price}</td>
-                            <td>{card.print}</td>
-                            {card.ownerData ? <td>{card.ownerData.username}</td> : <td />}
-                            <td><Button variant="dark">Trade</Button></td>
+            <div className="table-responsive">
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Set</th>
+                            <th onClick={handleSortByPrice} style={{ cursor: 'pointer' }}>Price</th>
+                            <th>Print</th>
+                            {cards.some(card => card.ownerData) && <th>Owner</th>}
+                            <th>Action</th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {filteredCards.map((card, index) => (
+                            <tr key={index}>
+                                <td onClick={() => { handleImageClick }}><Image src={card.imageURL} style={{ height: "60px", width: "40px" }}></Image></td>
+                                <td>{card.name}</td>
+                                <td>{card.set}</td>
+                                <td>${card.price}</td>
+                                <td>{card.print}</td>
+                                {card.ownerData ? <td>{card.ownerData.username}</td> : <td />}
+                                <td><Button variant="dark" onClick={() => {
+                                    if (card.ownerData) {
+                                        handleTradeNavigate(card.ownerData.user_id);
+                                    } else {
+                                        console.error("Owner data is missing for this card");
+                                    }
+                                }}>Trade</Button></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>w
             <Modal show={showModal} onHide={handleCloseModal} centered>
                 <Modal.Body style={{
                     padding: "10px",

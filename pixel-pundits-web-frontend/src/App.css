@@ -112,5 +112,5 @@
 }
 
 .black-radio .form-check-input:checked + .form-check-label {
-  color: black; /* Optional: changes label color if needed */
+  color: black; 
 }
