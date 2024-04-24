@@ -9,13 +9,6 @@ import { GRAPHQL_ENDPOINT } from '../realm/constants';
 //Grabs a given card from the user's inventory given the unique _id
 //the _id is NOT the cardID, which defines the exact card in an MTG set.
 //the _id can differentiate between two of the exact same cards.
-
-// export async function getDBCard(user: any, id: string): Promise<any> {
-
-// }
-
-//Adds a card to the inventory of the current user
-//pass in a JSON form with 
 export async function addDBCard(user: any, form: CardObj, addHelper: any): Promise<any> {
     //graphql query to add a new card
     const addCardQuery = gql`

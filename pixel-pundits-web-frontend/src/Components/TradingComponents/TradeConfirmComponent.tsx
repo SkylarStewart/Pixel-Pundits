@@ -19,7 +19,7 @@ interface Card {
 }
 
 
-export default function TradeConfirmComponent({ trade }: { trade: ParsedTrade }) {
+export default function TradeConfirmComponent({ trade, helperFunction }: { trade: ParsedTrade, helperFunction: any }) {
 
     //user context
     const { user } = useContext(UserContext)
@@ -119,7 +119,7 @@ export default function TradeConfirmComponent({ trade }: { trade: ParsedTrade })
         // Add other properties if needed
     }
 
-    
+
     interface TradeAccepterDetails {
         userData: any[];
         // Add other properties if needed
@@ -129,7 +129,7 @@ export default function TradeConfirmComponent({ trade }: { trade: ParsedTrade })
         return 'userData' in obj;
     }
 
-    
+
     function isTradeAccepterDetails(obj: any): obj is TradeAccepterDetails {
         return 'userData' in obj;
     }
