@@ -217,7 +217,7 @@ export async function getUserCompletedTrades(user: any): Promise<any> {
     return resp;
 }
 
-export async function updateAcceptStatus(user: any, tradeId: any): Promise<any> {
+export async function updateAcceptStatus(user: any, tradeId: any, helper: any): Promise<any> {
     const updateAcceptStatusMutation = gql`
     mutation updateAcceptStatus($tradeId: ObjectId!, $userId: ObjectId!) {
         updateOneTrade(
@@ -239,13 +239,14 @@ export async function updateAcceptStatus(user: any, tradeId: any): Promise<any> 
 
     try {
         const response = await request(GRAPHQL_ENDPOINT, updateAcceptStatusMutation, queryVariables, headers);
+        helper();
         return response;
     } catch (error) {
         console.error(error);
     }
 }
 
-export async function confirmTradeAsAccepter(user: any, tradeId: any): Promise<any> {
+export async function confirmTradeAsAccepter(user: any, tradeId: any, helper: any): Promise<any> {
     const confirmTradeMutation = gql`
     mutation confirmTradeAsAccepter($tradeId: ObjectId!, $userId: ObjectId!) {
         updateOneTrade(
@@ -267,13 +268,14 @@ export async function confirmTradeAsAccepter(user: any, tradeId: any): Promise<a
 
     try {
         const response = await request(GRAPHQL_ENDPOINT, confirmTradeMutation, queryVariables, headers);
+        helper();
         return response;
     } catch (error) {
         console.error(error);
     }
 }
 
-export async function confirmTradeAsMaker(user: any, tradeId: any): Promise<any> {
+export async function confirmTradeAsMaker(user: any, tradeId: any, helper: any): Promise<any> {
     const confirmTradeMutation = gql`
     mutation confirmTradeAsMaker($tradeId: ObjectId!, $userId: ObjectId!) {
         updateOneTrade(
@@ -295,6 +297,7 @@ export async function confirmTradeAsMaker(user: any, tradeId: any): Promise<any>
 
     try {
         const response = await request(GRAPHQL_ENDPOINT, confirmTradeMutation, queryVariables, headers);
+        helper();
         return response;
     } catch (error) {
         console.error(error);
@@ -302,7 +305,7 @@ export async function confirmTradeAsMaker(user: any, tradeId: any): Promise<any>
 }
 
 
-export async function deleteTrade(user: any, tradeId: any): Promise<any> {
+export async function deleteTrade(user: any, tradeId: any, helper: any): Promise<any> {
     const deleteTradeMutation = gql`
     mutation deleteTrade($tradeId: ObjectId!) {
         deleteOneTrade(query: {_id: $tradeId}) {
@@ -319,6 +322,7 @@ export async function deleteTrade(user: any, tradeId: any): Promise<any> {
 
     try {
         const response = await request(GRAPHQL_ENDPOINT, deleteTradeMutation, queryVariables, headers);
+        helper();
         return response;
     } catch (error) {
         console.error("Error deleting the trade:", error);

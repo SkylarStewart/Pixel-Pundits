@@ -147,6 +147,12 @@ export default function Trades() {
         }
     }
 
+    const helperFunction = async () => {
+        await loadOfferedTrades();
+        await loadAcceptingTrades();
+        await loadCompletedTrades();
+    }
+
     useEffect(() => {
         loadOfferedTrades();
         loadAcceptingTrades();
@@ -228,7 +234,7 @@ export default function Trades() {
                                 }}>
                                     {offeredTrades.map((trade, index) => (
                                         <div key={index}>
-                                            <TradeOfferComponent trade={trade} />
+                                            <TradeOfferComponent trade={trade}  helperFunction = {helperFunction}/>
                                         </div>
                                     ))}
                                 </Container>
@@ -246,7 +252,7 @@ export default function Trades() {
                                     <h1>Incoming Offers</h1>
                                     {acceptTrades.map((trade, index) => (
                                         <Container key={index}>
-                                            <TradeAcceptComponent trade={trade} />
+                                            <TradeAcceptComponent trade={trade}  helperFunction = {helperFunction}/>
                                         </Container>
                                     ))}
                                 </Container>
@@ -264,7 +270,7 @@ export default function Trades() {
                                     <h1>Completed Trades</h1>
                                     {completedTrades.map((trade, index) => (
                                         <Container key={index}>
-                                            <TradeConfirmComponent trade={trade} />
+                                            <TradeConfirmComponent trade={trade} helperFunction = {helperFunction}/>
                                         </Container>
                                     ))}
                                 </Container>

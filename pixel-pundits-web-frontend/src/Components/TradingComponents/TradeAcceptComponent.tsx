@@ -21,7 +21,7 @@ interface Props {
     cards: Card[];
 }
 
-export default function TradeAcceptComponent({ trade }: { trade: ParsedTrade }) {
+export default function TradeAcceptComponent({ trade, helperFunction }: { trade: ParsedTrade, helperFunction: any }) {
     const { user } = useContext(UserContext);
 
     //state for table
@@ -216,14 +216,14 @@ export default function TradeAcceptComponent({ trade }: { trade: ParsedTrade }) 
                     {trade.acceptStatus ? (
                         <>
                             <Row style={{ marginTop: '30px', marginBottom: '30px' }}><h4>Trade Accepted, Confirm Trade has Occured:</h4></Row>
-                            <Button variant="dark" onClick={() => confirmTradeAsAccepter(user, trade._id)}>Confirm Trade</Button>
+                            <Button variant="dark" onClick={() => confirmTradeAsAccepter(user, trade._id, helperFunction)}>Confirm Trade</Button>
 
                         </>
                     ) : (
                         <>
                             <Row style={{ marginTop: '30px', marginBottom: '30px' }}><h4>Accept or Decline Trade:</h4></Row>
-                            <Button variant="dark" onClick={() => updateAcceptStatus(user, trade._id)} style={{ marginRight: "10px" }}>Accept Trade</Button>
-                            <Button variant="dark" onClick={() => deleteTrade(user, trade._id)}>Decline Trade</Button>
+                            <Button variant="dark" onClick={() => updateAcceptStatus(user, trade._id, helperFunction)} style={{ marginRight: "10px" }}>Accept Trade</Button>
+                            <Button variant="dark" onClick={() => deleteTrade(user, trade._id, helperFunction)}>Decline Trade</Button>
                         </>
                     )}
                 </Col>

@@ -19,7 +19,7 @@ interface Card {
 }
 
 
-export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
+export default function TradeOfferComponent({ trade, helperFunction }: { trade: ParsedTrade, helperFunction: any }) {
     const { user } = useContext(UserContext);
 
     //state for table
@@ -206,9 +206,9 @@ export default function TradeOfferComponent({ trade }: { trade: ParsedTrade }) {
                     </Row>
                     <Row style={{ marginTop: '30px' }}><h4>Message: {trade.message}</h4></Row>
                     {trade.acceptStatus ? (
-                        <Button variant="dark" onClick={() => confirmTradeAsMaker(user, trade._id)}>Confirm Trade</Button>
+                        <Button variant="dark" onClick={() => confirmTradeAsMaker(user, trade._id, helperFunction)}>Confirm Trade</Button>
                     ) : (
-                        <Button variant="dark" onClick={() => deleteTrade(user, trade._id)}>Delete Trade</Button>
+                        <Button variant="dark" onClick={() => deleteTrade(user, trade._id, helperFunction)}>Delete Trade</Button>
                     )}
                 </Col>
             </Row>
